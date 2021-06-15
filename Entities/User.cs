@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Entities
 {
@@ -8,5 +9,7 @@ namespace Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public virtual ICollection<Questionnaire> Questionnaires { get; set; }
+        public virtual ICollection<Result> Results { get; set; }
     }
 }
