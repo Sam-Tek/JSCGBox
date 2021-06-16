@@ -9,7 +9,7 @@ namespace Entities
     public class Result
     {
         public int Id { get; set; }
-        public double Note { get; set; }
+        public double? Note { get; set; }
         public DateTime ResponseDate { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }
