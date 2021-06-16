@@ -33,11 +33,13 @@ namespace Repositories
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
         }
+
         public async Task EditAsync(User user)
         {
             _context.Update(user);
             await _context.SaveChangesAsync();
         }
+
         public async Task DeleteAsync(User user)
         {
             _context.Remove(user);
