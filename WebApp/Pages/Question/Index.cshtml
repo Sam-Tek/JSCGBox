@@ -1,0 +1,25 @@
+﻿@using Entities
+@model System.Linq.IQueryable<Entities.Question>
+
+@{
+    ViewBag.Title = "Liste des question";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table>
+    <thead>
+    <tr>
+        <td>Intitulé</td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Question question in Model)
+    {
+        <tr>
+            <td>@question.Entitled</td>
+        </tr>
+    }
+    </tbody>
+</table>
