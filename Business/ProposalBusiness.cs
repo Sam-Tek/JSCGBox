@@ -10,7 +10,7 @@ namespace Business
     public class ProposalBusiness : IProposalBusiness
     {
         private IProposalRepository _proposalRepository;
-        
+
         public ProposalBusiness(IProposalRepository proposalRepository)
         {
             _proposalRepository = proposalRepository;
@@ -19,6 +19,11 @@ namespace Business
         public async Task<IQueryable<Proposal>> GetProposalsAsync()
         {
             return await _proposalRepository.GetProposalsAsync();
+        }
+
+        public async Task<IQueryable<Proposal>> GetProposalsByQuestionAsync(int questionId)
+        {
+            return await _proposalRepository.GetProposalsByQuestionAsync(questionId);
         }
 
         public async Task<Proposal> DetailAsync(int id)

@@ -24,6 +24,12 @@ namespace Repositories
             return proposals.AsQueryable();
         }
 
+        public async Task<IQueryable<Proposal>> GetProposalsByQuestionAsync(int questionId)
+        {
+            var proposals = await _context.Proposals.Where(p => p.Question.Id == questionId).ToListAsync();
+            return proposals.AsQueryable();
+        }
+
         public async Task<Proposal> DetailAsync(int id)
         {
             return await _context.Proposals.FirstOrDefaultAsync(b => b.Id == id);
