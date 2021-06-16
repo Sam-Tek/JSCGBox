@@ -1,3 +1,5 @@
+using Business;
+using Business.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +29,13 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //add dependency injection
+            services.AddScoped<IUserBusiness, UserBusiness>();
+            services.AddScoped<IResultBusiness, ResultBusiness>();
+            services.AddScoped<IQuestionnaireBusiness, QuestionnaireBusiness>();
+            services.AddScoped<IQuestionBusiness, QuestionBusiness>();
+            services.AddScoped<IProposalBusiness, ProposalBusiness>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -34,6 +43,7 @@ namespace WebApp
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
         }
 
