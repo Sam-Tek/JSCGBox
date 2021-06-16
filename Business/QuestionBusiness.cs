@@ -21,6 +21,11 @@ namespace Business
             return await _questionRepository.GetQuestionsAsync();
         }
 
+        public async Task<IQueryable<Question>> GetQuestionsByQuestionnaireAsync(int questionnaireId)
+        {
+            return await _questionRepository.GetQuestionsByQuestionnaireAsync(questionnaireId);
+        }
+
         public async Task<Question> DetailAsync(int id)
         {
             return await _questionRepository.DetailAsync(id);
