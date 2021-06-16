@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repositories;
+using Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,14 @@ namespace WebApp
             services.AddScoped<IQuestionnaireBusiness, QuestionnaireBusiness>();
             services.AddScoped<IQuestionBusiness, QuestionBusiness>();
             services.AddScoped<IProposalBusiness, ProposalBusiness>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IResultRepository, ResultRepository>();
+            services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IProposalRepository, ProposalRepository>();
+
+            services.AddScoped<JSCGContext>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
