@@ -1,0 +1,14 @@
+﻿@using Entities
+@model Entities.Question
+
+@{
+    ViewBag.Title = $"Suprimer la question #{Model.Id}";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<span>Êtes vous sur?</span>
+
+@Html.ActionLink("Oui", "Delete", "Question", Model.Id)
+@Html.ActionLink("Non", "Details", "Question", Model.Id)
