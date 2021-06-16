@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using Business.Contracts;
+using Entities;
 using Repositories.Contracts;
 using System;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class UserBusiness
+    public class UserBusiness : IUserBusiness
     {
         private IUserRepository _userRepository;
         
