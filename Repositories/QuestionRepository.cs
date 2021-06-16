@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Microsoft.EntityFrameworkCore;
+using Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class QuestionRepository
+    public class QuestionRepository : IQuestionRepository
     {
         private JSCGContext _context;
 
@@ -17,13 +18,13 @@ namespace Repositories
             _context = context;
         }
 
-        public async Task<IQueryable<Question>> GetQuestionAsync()
+        public async Task<IQueryable<Question>> GetQuestionsAsync()
         {
             var questions = await _context.Questions.ToListAsync();
             return questions.AsQueryable();
         }
 
-        public async Task<Question> DetailsAsync(int id)
+        public async Task<Question> DetailAsync(int id)
         {
             return await _context.Questions.FirstOrDefaultAsync(b => b.Id == id);
         }
