@@ -15,19 +15,19 @@ namespace Repositories
         public DbSet<Question> Questions { get; set; }
         public DbSet<Proposal> Proposals { get; set; }
         public DbSet<Result> Results { get; set; }
-
-        public JSCGContext(DbContextOptions options) : base(options){ }
+        public JSCGContext() : base() { }
+        public JSCGContext(DbContextOptions options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //For execute without the asp.net core
             //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=JSCGDatabase;Integrated Security=true");
-            base.OnConfiguring(optionsBuilder); 
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); 
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

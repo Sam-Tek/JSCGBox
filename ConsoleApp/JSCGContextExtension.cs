@@ -145,6 +145,7 @@ namespace Repositories
                     ResponseDate = new DateTime(2021, 06, 16),
                     User = users[0],
                     Proposals = proposals,
+                    Questionnaire = questionnaires[0],
                 },
                 new Result
                 {
@@ -152,6 +153,7 @@ namespace Repositories
                     ResponseDate = new DateTime(2021, 06, 15),
                     User = users[1],
                     Proposals = proposals,
+                    Questionnaire = questionnaires[1],
                 },
                 new Result
                 {
@@ -159,6 +161,7 @@ namespace Repositories
                     ResponseDate = new DateTime(2021, 06, 14),
                     User = users[2],
                     Proposals = proposals,
+                    Questionnaire = questionnaires[2],
                 },
                 new Result
                 {
@@ -166,6 +169,7 @@ namespace Repositories
                     ResponseDate = new DateTime(2021, 06, 13),
                     User = users[3],
                     Proposals = proposals,
+                    Questionnaire = questionnaires[3],
                 },
             };
             #endregion
@@ -175,6 +179,7 @@ namespace Repositories
             context.Questions.AddRange(questions);
             context.Proposals.AddRange(proposals);
             context.Results.AddRange(results);
+            context.SaveChanges();
         }
     }
 }
