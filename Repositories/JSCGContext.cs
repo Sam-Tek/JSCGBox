@@ -21,7 +21,7 @@ namespace Repositories
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //For execute without the asp.net core
-            //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=JSCGDatabase;Integrated Security=true");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=JSCGDatabase;Integrated Security=true");
             base.OnConfiguring(optionsBuilder);
         }
 
