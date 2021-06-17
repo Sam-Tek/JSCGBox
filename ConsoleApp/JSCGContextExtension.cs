@@ -56,21 +56,25 @@ namespace Repositories
                 new Questionnaire
                 {
                     Title = "Title Questionnaire A",
+                    DefaultTimer = 30,
                     User = users[0],
                 },
                 new Questionnaire
                 {
                     Title = "Title Questionnaire B",
+                    DefaultTimer = 60,
                     User = users[1],
                 },
                 new Questionnaire
                 {
                     Title = "Title Questionnaire C",
+                    DefaultTimer = 120,
                     User = users[2],
                 },
                 new Questionnaire
                 {
                     Title = "Title Questionnaire D",
+                    DefaultTimer = 60,
                     User = users[3],
                 },
             };
