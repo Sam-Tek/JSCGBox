@@ -9,7 +9,7 @@ namespace Repositories.Contracts
     {
         public Task<IQueryable<User>> GetUsersAsync();
 
-        public Task<User> DetailAsync(int id);
+        public Task<User> DetailAsync(string id);
 
         public Task CreateAsync(User user);
 

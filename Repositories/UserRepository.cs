@@ -24,7 +24,7 @@ namespace Repositories
             return users.AsQueryable();
         }
 
-        public async Task<User> DetailAsync(int id)
+        public async Task<User> DetailAsync(string id)
         {
             return await _context.Users.FirstOrDefaultAsync(b => b.Id == id);
         }

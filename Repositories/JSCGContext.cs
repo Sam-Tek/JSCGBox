@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class JSCGContext : DbContext
+    public class JSCGContext : IdentityDbContext<User>
     {
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<Questionnaire> Questionnaires { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Proposal> Proposals { get; set; }
         public DbSet<Result> Results { get; set; }
         public JSCGContext() : base() { }
-        public JSCGContext(DbContextOptions options) : base(options) { }
+        public JSCGContext(DbContextOptions<JSCGContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

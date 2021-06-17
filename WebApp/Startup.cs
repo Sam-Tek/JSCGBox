@@ -1,5 +1,6 @@
 using Business;
 using Business.Contracts;
+using Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Data;
 
 namespace WebApp
 {
@@ -46,13 +46,13 @@ namespace WebApp
 
             services.AddScoped<JSCGContext>();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<JSCGContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(nameof(WebApp))));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<JSCGContext>();
 
             services.AddControllersWithViews();
         }

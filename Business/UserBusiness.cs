@@ -21,7 +21,7 @@ namespace Business
             return await _userRepository.GetUsersAsync();
         }
 
-        public async Task<User> DetailAsync(int id)
+        public async Task<User> DetailAsync(string id)
         {
             return await _userRepository.DetailAsync(id);
         }
