@@ -10,7 +10,20 @@
 
 @foreach (var item in Model)
 {
-    @item.Email<br />
-    @item.FirstName<br />
-    @item.LastName<br /><br />
+    @item.Email
+    <br />
+    @item.FirstName
+    <br />
+    @item.LastName
+    <br />
+    @if (item.Questionnaires != null)
+    {
+        @foreach (var questionnaire in item.Questionnaires)
+        {
+            @questionnaire.Title
+            <br />
+        }
+    }
+    <br />
+    <br />
 }
