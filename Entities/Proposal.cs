@@ -17,5 +17,7 @@ namespace Entities
         [Required]
         public virtual Question Question { get; set; }
 
+        public virtual ICollection<Result> Results { get; set; }
+
     }
 }

@@ -148,28 +148,24 @@ namespace ConsoleApp
                     Note = 20,
                     ResponseDate = new DateTime(2021, 06, 16),
                     User = users[0],
-                    Questionnaire = questionnaires[0],
                 },
                 new Result
                 {
                     Note = 19,
                     ResponseDate = new DateTime(2021, 06, 15),
                     User = users[1],
-                    Questionnaire = questionnaires[1],
                 },
                 new Result
                 {
                     Note = 18.5,
                     ResponseDate = new DateTime(2021, 06, 14),
                     User = users[2],
-                    Questionnaire = questionnaires[2],
                 },
                 new Result
                 {
                     Note = 17.5,
                     ResponseDate = new DateTime(2021, 06, 13),
                     User = users[3],
-                    Questionnaire = questionnaires[3],
                 },
             };
             #endregion

@@ -14,8 +14,7 @@ namespace Entities
 
         public string UserId { get; set; }
         public virtual User User { get; set; }
-        public int QuestionnaireId { get; set; }
-        public virtual Questionnaire Questionnaire { get; set; }
 
+        public virtual ICollection<Proposal> Proposals { get; set; }
     }
 }

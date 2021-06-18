@@ -11,7 +11,7 @@ namespace Entities
         [MaxLength(100)]
         public string Entitled { get; set; }
 
-        public int Timer { get; set; } // En secondes
+        public int? Timer { get; set; } // En secondes
 
         [Required]
         public int QuestionnaireId { get; set; }

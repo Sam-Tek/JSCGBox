@@ -17,7 +17,6 @@ namespace Entities
 
         public string UserId { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<Result> Results { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
 
 
