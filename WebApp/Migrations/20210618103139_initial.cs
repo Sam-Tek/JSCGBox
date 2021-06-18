@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApp.Migrations
 {
-    public partial class IdentityOverrideUser : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -205,7 +205,7 @@ namespace WebApp.Migrations
                     Note = table.Column<double>(type: "float", nullable: true),
                     ResponseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    QuestionnaireId = table.Column<int>(type: "int", nullable: true)
+                    QuestionnaireId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,7 +221,7 @@ namespace WebApp.Migrations
                         column: x => x.QuestionnaireId,
                         principalTable: "Questionnaires",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,30 +241,6 @@ namespace WebApp.Migrations
                         name: "FK_Proposals_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProposalResult",
-                columns: table => new
-                {
-                    ProposalsId = table.Column<int>(type: "int", nullable: false),
-                    ResultsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProposalResult", x => new { x.ProposalsId, x.ResultsId });
-                    table.ForeignKey(
-                        name: "FK_ProposalResult_Proposals_ProposalsId",
-                        column: x => x.ProposalsId,
-                        principalTable: "Proposals",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProposalResult_Results_ResultsId",
-                        column: x => x.ResultsId,
-                        principalTable: "Results",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -307,11 +283,6 @@ namespace WebApp.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProposalResult_ResultsId",
-                table: "ProposalResult",
-                column: "ResultsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Proposals_QuestionId",
@@ -357,16 +328,13 @@ namespace WebApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ProposalResult");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
                 name: "Proposals");
 
             migrationBuilder.DropTable(
                 name: "Results");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Questions");

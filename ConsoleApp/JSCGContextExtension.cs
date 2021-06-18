@@ -1,12 +1,12 @@
-﻿using Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities;
+using Repositories;
 
-namespace Repositories
+namespace ConsoleApp
 {
+    // ReSharper disable once InconsistentNaming
     public static class JSCGContextExtension
     {
         public static void Initialize(this JSCGContext context, bool dropAlways = false)
@@ -148,7 +148,6 @@ namespace Repositories
                     Note = 20,
                     ResponseDate = new DateTime(2021, 06, 16),
                     User = users[0],
-                    Proposals = proposals,
                     Questionnaire = questionnaires[0],
                 },
                 new Result
@@ -156,7 +155,6 @@ namespace Repositories
                     Note = 19,
                     ResponseDate = new DateTime(2021, 06, 15),
                     User = users[1],
-                    Proposals = proposals,
                     Questionnaire = questionnaires[1],
                 },
                 new Result
@@ -164,7 +162,6 @@ namespace Repositories
                     Note = 18.5,
                     ResponseDate = new DateTime(2021, 06, 14),
                     User = users[2],
-                    Proposals = proposals,
                     Questionnaire = questionnaires[2],
                 },
                 new Result
@@ -172,7 +169,6 @@ namespace Repositories
                     Note = 17.5,
                     ResponseDate = new DateTime(2021, 06, 13),
                     User = users[3],
-                    Proposals = proposals,
                     Questionnaire = questionnaires[3],
                 },
             };

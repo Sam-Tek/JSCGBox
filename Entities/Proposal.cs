@@ -16,7 +16,6 @@ namespace Entities
         public int QuestionId { get; set; }
         [Required]
         public virtual Question Question { get; set; }
-        public virtual ICollection<Result> Results { get; set; }
 
     }
 }

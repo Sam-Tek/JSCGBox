@@ -327,21 +327,6 @@ namespace WebApp.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ProposalResult", b =>
-                {
-                    b.Property<int>("ProposalsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResultsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProposalsId", "ResultsId");
-
-                    b.HasIndex("ResultsId");
-
-                    b.ToTable("ProposalResult");
-                });
-
             modelBuilder.Entity("Entities.Proposal", b =>
                 {
                     b.HasOne("Entities.Question", "Question")
@@ -437,21 +422,6 @@ namespace WebApp.Migrations
                     b.HasOne("Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ProposalResult", b =>
-                {
-                    b.HasOne("Entities.Proposal", null)
-                        .WithMany()
-                        .HasForeignKey("ProposalsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Result", null)
-                        .WithMany()
-                        .HasForeignKey("ResultsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
