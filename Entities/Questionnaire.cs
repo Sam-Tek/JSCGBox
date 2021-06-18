@@ -15,7 +15,7 @@ namespace Entities
         public int DefaultTimer { get; set; } // En secondes
 
 
-        //public int UserId { get; set; }
+        public string UserId { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Result> Results { get; set; }
         public virtual ICollection<Question> Questions { get; set; }

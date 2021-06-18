@@ -13,7 +13,8 @@ namespace Entities
 
         public int Timer { get; set; } // En secondes
 
-        //public int QuestionnaireId { get; set; }
+        [Required]
+        public int QuestionnaireId { get; set; }
         [Required]
         public virtual Questionnaire Questionnaire { get; set; }
         public virtual ICollection<Proposal> Proposals { get; set; }
