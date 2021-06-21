@@ -22,18 +22,21 @@ namespace WEBAPI.Controllers
             _business = business;
         }
 
+
         [HttpGet]
         public async Task<IQueryable<Question>> GetQuestionsAsync()
         {
             return await _business.GetQuestionsAsync();
         }
 
+        
+
 
         //[HttpGet("{id}")]
-       // public async Task<ActionResult<Question>> GetQuestionsByQuestionnaireAsync(int id)
+        // public async Task<ActionResult<Question>> GetQuestionsByQuestionnaireAsync(int id)
         //{
         //    return await _business.GetQuestionsByQuestionnaireAsync(id);
-       // }
+        // }
 
     }
 }
