@@ -15,7 +15,8 @@ namespace Entities
 
         [Required]
         public int QuestionnaireId { get; set; }
-        [Required]
+        //[Required] Delete because Required is for only questionnaireId,
+        //when I need to create a question ModelState.IsValid block me because Questionnaire is empty
         public virtual Questionnaire Questionnaire { get; set; }
         public virtual ICollection<Proposal> Proposals { get; set; }
 

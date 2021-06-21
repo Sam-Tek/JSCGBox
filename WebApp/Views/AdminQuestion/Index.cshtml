@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Entities.Question>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Question management</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<partial name="_AddQuestion" model="ViewBag.ModelQuestion" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Entitled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questionnaire)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entitled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Timer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Questionnaire.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            $("#SubmitAddQuestion").click(function (e) {
+                e.preventDefault();
+                var Entitled = $("#Entitled").val();
+                var Timer = $("#Timer").val();
+                var QuestionnaireId = $("#QuestionnaireId").val();
+                var token = $("[name='__RequestVerificationToken']").val();
+                $.post("@(Url.Action("Add", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, __RequestVerificationToken: token },
+                    function (data) {
+                        alert('ok');
+                    });
+            });
+        })
+    </script>
+}
