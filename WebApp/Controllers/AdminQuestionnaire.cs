@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.Controllers.Admin
+namespace WebApp.Controllers
 {
-    public class QuestionaireController : Controller
+    public class AdminQuestionnaire : Controller
     {
         // GET
         public IActionResult Index()
