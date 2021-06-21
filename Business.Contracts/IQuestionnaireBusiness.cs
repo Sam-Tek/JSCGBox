@@ -13,6 +13,9 @@ namespace Business.Contracts
 
         public Task<Questionnaire> DetailAsync(int id);
 
+        //Added this method because for edit questionnaire I must be sure that the questionnaire belongs to one user
+        public Task<Questionnaire> DetailByUserIdAsync(int id, string userId);
+
         public Task CreateAsync(Questionnaire result);
 
         public Task EditAsync(Questionnaire result);

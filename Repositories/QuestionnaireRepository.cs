@@ -29,6 +29,12 @@ namespace Repositories
             return await _context.Questionnaires.FirstOrDefaultAsync(b => b.Id == id);
         }
 
+        //Added this method because for edit questionnaire I must be sure that the questionnaire belongs to one user
+        public async Task<Questionnaire> DetailByUserIdAsync(int id, string userId)
+        {
+            return await _context.Questionnaires.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
+        }
+
         public async Task CreateAsync(Questionnaire questionnaire)
         {
             _context.Questionnaires.Add(questionnaire);
