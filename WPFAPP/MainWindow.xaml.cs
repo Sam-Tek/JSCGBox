@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Business;
+using Business.Contracts;
+using Repositories;
+using Repositories.Contracts;
+using Unity;
+using WPFAPP.MVVM.ViewModel;
 
 namespace WPFAPP
 {
