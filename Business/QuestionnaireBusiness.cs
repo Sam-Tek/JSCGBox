@@ -28,6 +28,12 @@ namespace Business
             return await _questionnaireRepository.DetailAsync(id);
         }
 
+        //Added this method because for edit questionnaire I must be sure that the questionnaire belongs to one user
+        public async Task<Questionnaire> DetailByUserIdAsync(int id, string userId)
+        {
+            return await _questionnaireRepository.DetailByUserIdAsync(id,userId);
+        }
+
         public async Task CreateAsync(Questionnaire result)
         {
             await _questionnaireRepository.CreateAsync(result);

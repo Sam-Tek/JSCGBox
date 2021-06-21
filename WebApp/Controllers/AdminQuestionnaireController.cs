@@ -10,19 +10,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
 {
-    
+
     [Authorize]
     public class AdminQuestionnaireController : Controller
     {
         private UserManager<User> _userManager;
-        private IQuestionnaireBusiness _buisness;
-        
+        private IQuestionnaireBusiness _questionnaireBusiness;
 
-        public AdminQuestionnaireController(UserManager<User> userManager, IQuestionnaireBusiness buisness)
+
+        public AdminQuestionnaireController(UserManager<User> userManager, IQuestionnaireBusiness questionnaireBusiness)
         {
             _userManager = userManager;
-            _buisness = buisness;
+            _questionnaireBusiness = questionnaireBusiness;
         }
+
         // GET
         public async Task<IActionResult> Index()
         {
@@ -32,31 +33,93 @@ namespace WebApp.Controllers
 
         public IActionResult Create()
         {
-            Questionnaire questionnaire = new();
-
             return View();
         }
 
-        [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> Create(Questionnaire questionnaire)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Title,DefaultTimer")] Questionnaire questionnaire)
         {
-            await _buisness.CreateAsync(questionnaire);
+            if (ModelState.IsValid)
+            {
+                questionnaire.User = await _userManager.GetUserAsync(User);
+                await _questionnaireBusiness.CreateAsync(questionnaire);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(questionnaire);
+        }
+
+        public async Task<IActionResult> Edit(int id = 0)
+        {
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(id, user.Id);
+
+            if (questionnaire == null)
+            {
+                return NotFound();
+            }
+
+            return View(questionnaire);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Id,Title,DefaultTimer")] Questionnaire questionnaire)
+        {
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaireBDD = await _questionnaireBusiness.DetailByUserIdAsync(questionnaire.Id, user.Id);
+
+            if (questionnaireBDD == null)
+            {
+                return NotFound();
+            }
+
+            questionnaireBDD.Title = questionnaire.Title;
+            questionnaireBDD.DefaultTimer = questionnaire.DefaultTimer;
+
+            await _questionnaireBusiness.EditAsync(questionnaireBDD);
+
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Details(int id = 0)
         {
-            Questionnaire questionnaire = await _buisness.DetailAsync(id);
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(id, user.Id);
+            if (questionnaire == null)
+            {
+                return NotFound();
+            }
+
             return View(questionnaire);
         }
-        
-        [HttpPost]
 
-        public async Task<IActionResult> Edit(Questionnaire questionnaire)
+        // GET: Questionnaires/Delete/5
+        public async Task<IActionResult> Delete(int id = 0)
         {
-            await _buisness.EditAsync(questionnaire);
-            return RedirectToAction("Edit", "AdminQuestionnaire", questionnaire.Id);
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(id, user.Id);
+            if (questionnaire == null)
+            {
+                return NotFound();
+            }
+
+            return View(questionnaire);
+        }
+
+        // POST: Questionnaires/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id = 0)
+        {
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(id, user.Id);
+            if (questionnaire == null)
+            {
+                return NotFound();
+            }
+            await _questionnaireBusiness.DeleteAsync(questionnaire);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
