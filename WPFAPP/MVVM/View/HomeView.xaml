@@ -42,7 +42,7 @@
                         <TextBlock Text="App de type Evalbox..&#x0a; " Foreground="White" 
                                    FontSize="18" Margin="20,10,10,0"/>
                     </StackPanel>
-                    <Image Height="250" Source="/Images/man.PNG" Margin="250,38,-55,-88" RenderTransformOrigin="0.5,0.5" >
+                    <Image Height="250" Source="/Images/man.png" Margin="250,38,-55,-88" RenderTransformOrigin="0.5,0.5" >
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
