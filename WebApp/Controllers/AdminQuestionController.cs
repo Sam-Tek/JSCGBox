@@ -32,13 +32,15 @@ namespace WebApp.Controllers
             }
             //for create form of creation question
             ViewBag.ModelQuestion = new Question() { QuestionnaireId = questionnaire.Id };
+            //for create form of creation proposal
+            ViewBag.ModelProposal = new Proposal();
 
             return View(questionnaire.Questions);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<bool> Add([Bind("Entitled, Timer, QuestionnaireId")] Question question)
+        public async Task<IActionResult> Add([Bind("Entitled, Timer, QuestionnaireId")] Question question)
         {
             if (ModelState.IsValid)
             {
@@ -46,13 +48,13 @@ namespace WebApp.Controllers
                 Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(question.QuestionnaireId, user.Id);
                 if (questionnaire == null)
                 {
-                    return false;
+                    return NotFound();
                 }
                 question.Questionnaire = questionnaire;
                 await _questionBusiness.CreateAsync(question);
-                return true;
+                return PartialView("_AccordionCard", question);
             }
-            return false;
+            return NotFound();
         }
 
         [HttpPost]

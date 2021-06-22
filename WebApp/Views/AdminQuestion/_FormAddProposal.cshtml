@@ -1,0 +1,33 @@
+﻿@model Entities.Proposal
+<!-- Modal -->
+<div class="modal fade" id="ModalFormProposal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form asp-action="#" id="SubmitAddProposal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Entitled" class="control-label"></label>
+                        <input asp-for="Entitled" class="form-control"/>
+                        <span asp-validation-for="Entitled" class="text-danger"></span>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="IsCorrect" value="" class="form-check-input">
+                        <label asp-for="IsCorrect" class="form-check-label"></label>
+                        <span asp-validation-for="IsCorrect" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" asp-for="QuestionId" value="@Model.QuestionId"/>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

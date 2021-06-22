@@ -1,0 +1,28 @@
+﻿@model Entities.Question
+
+<div class="card">
+    <div class="card-header" id="heading@(Model.Id)">
+        <h5 class="mb-0">
+            <button id="TitleQuestion@(Model.Id)" class="btn btn-link" data-toggle="collapse" data-target="#collapse@(Model.Id)" aria-expanded="true" aria-controls="collapse@(Model.Id)">
+                @Model.Entitled - @Model.Timer s
+            </button>
+        </h5>
+    </div>
+
+    <div id="collapse@(Model.Id)" class="collapse @ViewBag.Show" aria-labelledby="heading@(Model.Id)" data-parent="#accordion">
+        <div class="card-body">
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit Model</a> |
+            <a asp-action="Details" asp-route-id="@Model.Id">Details Model</a> |
+            <a asp-action="Delete" asp-route-id="@Model.Id">Delete Model</a>
+            <span class="IdQuestion" style="display: none;">@Model.Id</span><br />
+            <a href="#TitleQuestion@(Model.Id)" onClick="eventClickAddProposal(@Model.Id);">Add Proposal</a><br />
+            @if (Model.Proposals != null)
+            {
+                foreach (var proposal in Model.Proposals)
+                {
+                    <text>- @proposal.Entitled -> @proposal.IsCorrect<br /> </text>
+                }
+            }
+        </div>
+    </div>
+</div>
