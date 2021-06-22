@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Entities.Questionnaire>
+
+@{
+    ViewData["Title"] = "Questionnaires";
+}
+
+<h1>Questionnaires</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                Number of questions
+            </th>
+            <th>
+                Created by
+            </th>
+            <th>
+                Participate
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Questions.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)
+                </td>
+                <td>
+                    <a asp-action="Participate" asp-route-id="@item.Id">Participate</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 

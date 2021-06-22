@@ -11,6 +11,8 @@ namespace Business.Contracts
     {
         public Task<IQueryable<Question>> GetQuestionsAsync();
 
+ 
+
         public Task<IQueryable<Question>> GetQuestionsByQuestionnaireAsync(int questionnaireId);
 
         public Task<Question> DetailAsync(int id);
