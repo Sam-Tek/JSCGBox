@@ -35,6 +35,11 @@ namespace Repositories
             return await _context.Questions.FirstOrDefaultAsync(b => b.Id == id);
         }
 
+        public async Task<bool> ExistAsync(int id)
+        {
+            return await _context.Questions.AnyAsync(q => id == q.Id);
+        }
+
         public async Task CreateAsync(Question question)
         {
             _context.Questions.Add(question);

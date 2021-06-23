@@ -19,11 +19,13 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-            <input type="hidden" asp-for="QuestionnaireId" value="@Model.QuestionnaireId"/>
+            <input type="hidden" asp-for="QuestionnaireId" value="@Model.QuestionnaireId" />
+            <input type="hidden" asp-for="Id" value=""/>
         </form>
     </div>
 </div>
 
 <div>
+    <a href="#SubmitAddQuestion" id="LinkCancelModification" onclick="cancelModification()">Cancel modification</a><br /> 
     <a asp-action="Index">Back to List</a>
 </div>
