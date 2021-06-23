@@ -22,5 +22,7 @@ namespace Business.Contracts
         public Task EditAsync(Question result);
 
         public Task DeleteAsync(Question result);
+
+        public Task<Question> GetNextQuestionAsync(Question questionInProgress);
     }
 }

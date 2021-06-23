@@ -87,25 +87,36 @@ namespace ConsoleApp
                 {
                     Entitled = "Entitled Question A",
                     Timer = 60,
+                    Order = 1,
                     Questionnaire = questionnaires[0],
                 },
                 new Question
                 {
                     Entitled = "Entitled Question B",
                     Timer = 120,
+                    Order = 1,
                     Questionnaire = questionnaires[1],
                 },
                 new Question
                 {
                     Entitled = "Entitled Question C",
                     Timer = 30,
+                    Order = 1,
                     Questionnaire = questionnaires[2],
                 },
                 new Question
                 {
                     Entitled = "Entitled Question D",
                     Timer = 15,
+                    Order = 1,
                     Questionnaire = questionnaires[3],
+                },
+                new Question
+                {
+                    Entitled = "Entitled Question E",
+                    Timer = 20,
+                    Order = 2,
+                    Questionnaire = questionnaires[2],
                 },
             };
             #endregion
@@ -136,6 +147,12 @@ namespace ConsoleApp
                     Entitled = "Entitled Proposal D",
                     IsCorrect = false,
                     Question = questions[3],
+                },
+                new Proposal
+                {
+                    Entitled = "Entitled Proposal E",
+                    IsCorrect = false,
+                    Question = questions[2],
                 },
             };
             #endregion

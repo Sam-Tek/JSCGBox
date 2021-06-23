@@ -13,10 +13,12 @@ namespace Repositories.Contracts
 
         public Task<Proposal> DetailAsync(int id);
 
-        public Task CreateAsync(Proposal result);
+        public Task CreateAsync(Proposal proposal);
 
-        public Task EditAsync(Proposal result);
+        public Task EditAsync(Proposal proposal);
 
-        public Task DeleteAsync(Proposal result);
+        public Task DeleteAsync(Proposal proposal);
+
+        public Task CreateProposalResultAsync(Proposal proposal, Result result);
     }
 }
