@@ -42,5 +42,15 @@ namespace Business
         {
             await _resultRepository.DeleteAsync(result);
         }
+
+        public async Task CreateResultProposalAsync(Result result, Proposal proposal)
+        {
+            await _resultRepository.CreateResultProposalAsync(result, proposal);
+        }
+
+        public async Task<IQueryable<Result>> GetResultsByUserIdAsync(string userId)
+        {
+            return await _resultRepository.GetResultsByUserIdAsync(userId);
+        }
     }
 }

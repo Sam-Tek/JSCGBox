@@ -52,5 +52,10 @@ namespace Repositories
             _context.Remove(question);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Question> GetNextQuestionAsync(Question questionInProgress)
+        {
+            return await _context.Questions.FirstOrDefaultAsync(q => q.Questionnaire.Id == questionInProgress.QuestionnaireId && q.Order == (questionInProgress.Order + 1));
+        }
     }
 }

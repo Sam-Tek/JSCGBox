@@ -45,5 +45,10 @@ namespace Business
         {
             await _questionRepository.DeleteAsync(question);
         }
+
+        public async Task<Question> GetNextQuestionAsync(Question questionInProgress)
+        {
+            return await _questionRepository.GetNextQuestionAsync(questionInProgress);
+        }
     }
 }

@@ -46,5 +46,17 @@ namespace Repositories
             _context.Remove(result);
             await _context.SaveChangesAsync();
         }
+
+        public async Task CreateResultProposalAsync(Result result, Proposal proposal)
+        {
+            result.Proposals.Add(proposal);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IQueryable<Result>> GetResultsByUserIdAsync(string userId)
+        {
+            var results = await _context.Results.Where(r => r.UserId == userId).ToListAsync();
+            return results.AsQueryable();
+        }
     }
 }
