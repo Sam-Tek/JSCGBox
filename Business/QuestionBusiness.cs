@@ -31,6 +31,11 @@ namespace Business
             return await _questionRepository.DetailAsync(id);
         }
 
+        public async Task<bool> ExistAsync(int id)
+        {
+            return await _questionRepository.ExistAsync(id);
+        }
+
         public async Task CreateAsync(Question question)
         {
             await _questionRepository.CreateAsync(question);

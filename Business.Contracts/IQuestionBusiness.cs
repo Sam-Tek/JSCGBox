@@ -17,6 +17,8 @@ namespace Business.Contracts
 
         public Task<Question> DetailAsync(int id);
 
+        public Task<bool> ExistAsync(int id);
+
         public Task CreateAsync(Question result);
 
         public Task EditAsync(Question result);
