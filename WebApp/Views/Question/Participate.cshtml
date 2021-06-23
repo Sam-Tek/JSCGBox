@@ -4,11 +4,11 @@
     ViewData["Title"] = "Participation in a questionnaire";
 }
 
-<h1>Participation in a questionnaire</h1>
+<h2>Participation in a questionnaire</h2>
 
 <form asp-action="Answer">
     <input type="hidden" asp-for="Id" />
-    <label asp-for="Entitled" class="control-label">@Model.Entitled</label>
+    <h4><label asp-for="Entitled" class="control-label">@Model.Entitled</label></h4>
     <ul>
         @foreach (var proposal in Model.Proposals)
         {
@@ -20,3 +20,9 @@
     </ul>
     <button type="submit" class="btn btn-primary">Answer</button>
 </form>
+
+<style>
+    ul{
+        list-style-type: none;
+    }
+</style>

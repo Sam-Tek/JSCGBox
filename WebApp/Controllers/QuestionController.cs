@@ -26,7 +26,7 @@ namespace WebApp.Controllers
             _resultBusiness = resultBusiness;
         }
 
-        public async Task<ActionResult> Participate(int id)
+        public async Task<ActionResult> Participate(int id, int order)
         {
             Questionnaire questionnaire = await _questionnaireBusiness.DetailAsync(id);
 
@@ -35,8 +35,8 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            Question firstQuestion = questionnaire.Questions.FirstOrDefault(q => q.Order == 1);
-            return View(firstQuestion);
+            Question question = questionnaire.Questions.FirstOrDefault(q => q.Order == order);
+            return View(question);
         }
 
         [HttpPost]
@@ -54,17 +54,16 @@ namespace WebApp.Controllers
                 {
                         // Create ResultProposal
                         await _proposalBusiness.CreateProposalResultAsync(proposal, result);
-                        //await _resultBusiness.CreateResultProposalAsync(result, proposal);
                 }
             }
             Question nextQuestion = await _questionBusiness.GetNextQuestionAsync(question);
             if (nextQuestion != null)
             {
-                return RedirectToAction(nameof(Participate), new { nextQuestion });
+                return RedirectToAction(nameof(Participate), new { id = nextQuestion.QuestionnaireId, order = nextQuestion.Order });
             }
             else
             {
-                //Redirection vers la page de résultats
+                //Redirection vers la page de résultats en WPF
                 return View();
             }
         }
