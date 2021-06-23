@@ -29,7 +29,42 @@ namespace WEBAPI.Controllers
             return (await _business.GetQuestionsAsync()).ToArray();
         }
 
-        
+        [HttpGet("{questionnaireId}")]
+
+        public async Task<IQueryable<Question>> GetQuestionsByQuestionnaireAsync(int questionnaireId)
+        {
+            return await _business.GetQuestionsByQuestionnaireAsync(questionnaireId);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<Question> DetailAsync(int id)
+        {
+            return await _business.DetailAsync(id);
+        }
+
+        [HttpPost]
+        public async Task<bool> CreateAsync(Question result)
+        {
+             await _business.CreateAsync(result);
+
+            return true;
+        }
+
+        [HttpPut]
+        public async Task<bool> EditAsync(Question result)
+        {
+            await _business.EditAsync(result);
+            return true;
+        }
+
+        [HttpDelete]
+        public async Task<bool> DeleteAsync(Question result)
+        {
+            await _business.DeleteAsync(result);
+            return true;
+        }
+
+
 
 
         //[HttpGet("{id}")]
