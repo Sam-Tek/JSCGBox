@@ -9,59 +9,67 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<partial name="_AddQuestion" model="ViewBag.ModelQuestion" />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Entitled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Timer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Questionnaire)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Entitled)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Timer)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Questionnaire.Id)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<partial name="_FormAddQuestion" model="ViewBag.ModelQuestion" />
+
+<div id="accordion">
+    @foreach (var question in Model)
+    {
+        <partial name="_AccordionCard" model="question" />
+    }
+</div>
+
+<partial name="_FormAddProposal" model="ViewBag.ModelProposal" />
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        $(function () {
-            $("#SubmitAddQuestion").click(function (e) {
-                e.preventDefault();
-                var Entitled = $("#Entitled").val();
-                var Timer = $("#Timer").val();
-                var QuestionnaireId = $("#QuestionnaireId").val();
-                var token = $("[name='__RequestVerificationToken']").val();
-                $.post("@(Url.Action("Add", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, __RequestVerificationToken: token },
-                    function (data) {
-                        alert('ok');
-                    });
+    $(function () {
+        @*Add a question to a questionnaire*@
+        $("#SubmitAddQuestion").submit(function (e) {
+            e.preventDefault();
+            var Entitled = $("#SubmitAddQuestion #Entitled").val();
+            var Timer = $("#SubmitAddQuestion #Timer").val();
+            var QuestionnaireId = $("#SubmitAddQuestion #QuestionnaireId").val();
+            var token = $("#SubmitAddQuestion input[name='__RequestVerificationToken']").val();
+            $.post("@(Url.Action("Add", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, __RequestVerificationToken: token },
+                function (data) {
+                    $("#accordion").append(data);
+                });
+        });
+
+        @* Add a proposal to a question *@
+        $("#SubmitAddProposal").submit(function (e) {
+            e.preventDefault();
+            var Entitled = $("#SubmitAddProposal #Entitled").val();
+
+            var IsCorrect = false;
+            if ($('#SubmitAddProposal #IsCorrect').is(":checked")) {
+                IsCorrect = true;
+            }
+            var QuestionId = $("#SubmitAddProposal #QuestionId").val();
+            var token = $("#SubmitAddProposal input[name='__RequestVerificationToken']").val();
+            $.post("@(Url.Action("Add", "AdminProposal"))", { Entitled: Entitled, IsCorrect: IsCorrect, QuestionId: QuestionId, __RequestVerificationToken: token },
+                function (data) {
+                    $("#heading" + QuestionId).parent().replaceWith(data);
+                });
+        });
+    });
+
+    @* display modal to display the proposal form *@
+    function eventClickAddProposal(IdQuestion) {
+        var TitleQuestion = $("#TitleQuestion" + IdQuestion).text();
+        $("#ModalLabel").text(TitleQuestion);
+        $("input#QuestionId").val(IdQuestion);
+        $('#ModalFormProposal').modal({
+            keyboard: true
+        });
+        return false;
+        }
+
+        @* delete one proposal *@
+        function eventClickDeleteProposal(IdProposal) {
+            $.get("@(Url.Action("Delete", "AdminProposal"))/"+IdProposal, function (data) {
+                $("#proposal" + IdProposal).remove();
             });
-        })
+        }
     </script>
 }

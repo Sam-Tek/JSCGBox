@@ -24,9 +24,9 @@ namespace WEBAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IQueryable<Question>> GetQuestionsAsync()
+        public async Task<Question[]> GetQuestionsAsync()
         {
-            return await _business.GetQuestionsAsync();
+            return (await _business.GetQuestionsAsync()).ToArray();
         }
 
         

@@ -3,6 +3,7 @@ using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,12 +13,12 @@ namespace WebApp.Controllers
     public class QuestionnaireController : Controller
     {
         private UserManager<User> _userManager;
-        private IQuestionnaireBusiness _business;
+        private IQuestionnaireBusiness _questionnaireBusiness;
 
-        public QuestionnaireController(UserManager<User> userManager, IQuestionnaireBusiness business)
+        public QuestionnaireController(UserManager<User> userManager, IQuestionnaireBusiness questionnaireBusiness)
         {
             _userManager = userManager;
-            _business = business;
+            _questionnaireBusiness = questionnaireBusiness;
         }
 
         // GET
@@ -31,10 +32,13 @@ namespace WebApp.Controllers
             {
                 // Comme toutes les propositions liées à un résultat ne proviennent que d'un seul questionnaire,
                 // on peut récupérer la première proposition pour remonter au questionnaire
-                Proposal firstProposal = result.Proposals.FirstOrDefault();
-                Question firstQuestion = firstProposal.Question;
-                Questionnaire questionnaire = firstQuestion.Questionnaire;
-                questionnaires.Add(questionnaire);
+                if (result.Proposals != null && result.Proposals.Count > 0)
+                {
+                    Proposal firstProposal = result.Proposals.FirstOrDefault();
+                    Question firstQuestion = firstProposal.Question;
+                    Questionnaire questionnaire = firstQuestion.Questionnaire;
+                    questionnaires.Add(questionnaire);
+                }
             }
 
             return View(questionnaires);
@@ -42,20 +46,8 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> Search()
         {
-            var questionnaires = await _business.GetQuestionnairesAsync();
+            var questionnaires = await _questionnaireBusiness.GetQuestionnairesAsync();
             return View(questionnaires);
-        }
-
-        public async Task<IActionResult> Participate(int id)
-        {
-            Questionnaire questionnaire = await _business.DetailAsync(id);
-
-            if (questionnaire == null)
-            {
-                return NotFound();
-            }
-
-            return View(questionnaire);
         }
     }
 }

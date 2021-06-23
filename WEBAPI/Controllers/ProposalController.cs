@@ -22,7 +22,7 @@ namespace WEBAPI.Controllers
 
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{questionId}")]
          public async Task<IQueryable<Proposal>> GetProposalsByQuestionAsync(int questionId)
         {
             return await _business.GetProposalsByQuestionAsync(questionId);

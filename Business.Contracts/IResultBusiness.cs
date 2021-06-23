@@ -18,5 +18,9 @@ namespace Business.Contracts
         public Task EditAsync(Result result);
 
         public Task DeleteAsync(Result result);
+
+        public Task CreateResultProposalAsync(Result result, Proposal proposal);
+
+        public Task<IQueryable<Result>> GetResultsByUserIdAsync(string userId);
     }
 }

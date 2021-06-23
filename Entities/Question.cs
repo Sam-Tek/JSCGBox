@@ -13,6 +13,8 @@ namespace Entities
 
         public int? Timer { get; set; } // En secondes
 
+        public int Order { get; set; }
+
         [Required]
         public int QuestionnaireId { get; set; }
         //[Required] Delete because Required is for only questionnaireId,

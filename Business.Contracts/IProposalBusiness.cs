@@ -20,5 +20,9 @@ namespace Business.Contracts
         public Task EditAsync(Proposal proposal);
 
         public Task DeleteAsync(Proposal proposal);
+
+        public Task CreateProposalResultAsync(Proposal proposal, Result result);
+
+        public Task<Result> GetResultByUserIdAndQuestionIdAndDateAsync(string userId, int questionId, DateTime date);
     }
 }

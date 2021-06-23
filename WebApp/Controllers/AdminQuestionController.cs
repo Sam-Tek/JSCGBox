@@ -32,13 +32,15 @@ namespace WebApp.Controllers
             }
             //for create form of creation question
             ViewBag.ModelQuestion = new Question() { QuestionnaireId = questionnaire.Id };
+            //for create form of creation proposal
+            ViewBag.ModelProposal = new Proposal();
 
             return View(questionnaire.Questions);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<bool> Add([Bind("Entitled, Timer, QuestionnaireId")] Question question)
+        public async Task<IActionResult> Add([Bind("Entitled, Timer, QuestionnaireId")] Question question)
         {
             if (ModelState.IsValid)
             {
@@ -46,31 +48,64 @@ namespace WebApp.Controllers
                 Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(question.QuestionnaireId, user.Id);
                 if (questionnaire == null)
                 {
-                    return false;
+                    return NotFound();
                 }
                 question.Questionnaire = questionnaire;
                 await _questionBusiness.CreateAsync(question);
-                return true;
+                return PartialView("_AccordionCard", question);
             }
-            return false;
+            return NotFound();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<bool> Edit(Question question)
         {
             await _questionBusiness.EditAsync(question);
             return true;
         }
 
-        public async Task<bool> Remove(int id)
+        // GET: Question/Delete/5
+        public async Task<IActionResult> Delete(int id = 0)
         {
+            //check if question exist 
             Question question = await _questionBusiness.DetailAsync(id);
-            if (question is null)
+            if (question == null)
             {
-                return false;
+                return NotFound();
+            }
+            //check if this question belongs to the current user
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(question.QuestionnaireId, user.Id);
+            if (questionnaire == null)
+            {
+                return NotFound();
+            }
+
+            return View(question);
+        }
+
+        // POST: Question/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id = 0)
+        {
+            //check if question exist 
+            Question question = await _questionBusiness.DetailAsync(id);
+            if (question == null)
+            {
+                return NotFound();
+            }
+            //check if this question belongs to the current user
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(question.QuestionnaireId, user.Id);
+            if (questionnaire == null)
+            {
+                return NotFound();
             }
             await _questionBusiness.DeleteAsync(question);
-            return true;
+            
+            return RedirectToAction("Index", new { Id = questionnaire.Id});
         }
     }
 }

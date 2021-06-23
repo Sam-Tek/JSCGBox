@@ -45,5 +45,28 @@ namespace Business
         {
             await _proposalRepository.DeleteAsync(proposal);
         }
+
+        public async Task CreateProposalResultAsync(Proposal proposal, Result result)
+        {
+            await _proposalRepository.CreateProposalResultAsync(proposal, result);
+        }
+
+        public async Task<Result> GetResultByUserIdAndQuestionIdAndDateAsync(string userId, int questionId, DateTime date)
+        {
+            Result resultReturn = null;
+            var proposals = await _proposalRepository.GetProposalsByQuestionAsync(questionId);
+
+            foreach (var proposal in proposals)
+            {
+                foreach (var result in proposal.Results)
+                {
+                    if (result.UserId == userId && result.ResponseDate.Date == date.Date)
+                    {
+                        return result;
+                    }
+                }
+            }
+            return resultReturn;
+        }
     }
 }

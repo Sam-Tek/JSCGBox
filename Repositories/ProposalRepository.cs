@@ -52,5 +52,11 @@ namespace Repositories
             _context.Remove(proposal);
             await _context.SaveChangesAsync();
         }
+
+        public async Task CreateProposalResultAsync(Proposal proposal, Result result)
+        {
+            proposal.Results.Add(result);
+            await _context.SaveChangesAsync();
+        }
     }
 }

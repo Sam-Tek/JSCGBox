@@ -47,6 +47,20 @@ namespace ConsoleApp
                     LastName = "SAMY",
                     Email = "ruben@samy.fr",
                 },
+                new User
+                {
+                    FirstName = "Test01",
+                    LastName = "User",
+                    Email = "Test01@user.fr",
+                    UserName = "Test01@user.fr",
+                    NormalizedUserName = "TEST01@USER.FR",
+                    NormalizedEmail = "TEST01@USER.FR",
+                    EmailConfirmed = true,
+                    PasswordHash = "AQAAAAEAACcQAAAAEM0he6rEcsxEawZcjY3+RX7FBs9sHpAW80ISRfR2aejHaepPBKoUZkiU4zNGbXMcFQ==",
+                    SecurityStamp = "GXH3W5ETKCQVFYOIXFUI7BGLZ7WIHVML",
+                    ConcurrencyStamp = "caa5f686-ac42-46f7-ac5e-03d93d7ce843",
+                    LockoutEnabled = true,
+                },
             };
             #endregion
 
@@ -69,7 +83,7 @@ namespace ConsoleApp
                 {
                     Title = "Title Questionnaire C",
                     DefaultTimer = 120,
-                    User = users[2],
+                    User = users[4],
                 },
                 new Questionnaire
                 {
@@ -87,25 +101,36 @@ namespace ConsoleApp
                 {
                     Entitled = "Entitled Question A",
                     Timer = 60,
+                    Order = 1,
                     Questionnaire = questionnaires[0],
                 },
                 new Question
                 {
                     Entitled = "Entitled Question B",
                     Timer = 120,
+                    Order = 1,
                     Questionnaire = questionnaires[1],
                 },
                 new Question
                 {
                     Entitled = "Entitled Question C",
                     Timer = 30,
+                    Order = 1,
                     Questionnaire = questionnaires[2],
                 },
                 new Question
                 {
                     Entitled = "Entitled Question D",
                     Timer = 15,
+                    Order = 1,
                     Questionnaire = questionnaires[3],
+                },
+                new Question
+                {
+                    Entitled = "Entitled Question E",
+                    Timer = 20,
+                    Order = 2,
+                    Questionnaire = questionnaires[2],
                 },
             };
             #endregion
@@ -137,6 +162,30 @@ namespace ConsoleApp
                     IsCorrect = false,
                     Question = questions[3],
                 },
+                new Proposal
+                {
+                    Entitled = "Entitled Proposal E",
+                    IsCorrect = false,
+                    Question = questions[2],
+                },
+                new Proposal
+                {
+                    Entitled = "Entitled Proposal F",
+                    IsCorrect = false,
+                    Question = questions[4],
+                },
+                new Proposal
+                {
+                    Entitled = "Entitled Proposal G",
+                    IsCorrect = false,
+                    Question = questions[4],
+                },
+                new Proposal
+                {
+                    Entitled = "Entitled Proposal H",
+                    IsCorrect = false,
+                    Question = questions[4],
+                },
             };
             #endregion
 
@@ -166,6 +215,17 @@ namespace ConsoleApp
                     Note = 17.5,
                     ResponseDate = new DateTime(2021, 06, 13),
                     User = users[3],
+                },
+                new Result
+                {
+                    Note = 15,
+                    ResponseDate = new DateTime(2021, 06, 23),
+                    User = users[4],
+                    Proposals = new List<Proposal>()
+                    {
+                        proposals[5],
+                        proposals[6]
+                    }
                 },
             };
             #endregion
