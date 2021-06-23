@@ -21,7 +21,7 @@
 <partial name="_FormAddProposal" model="ViewBag.ModelProposal" />
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
+<script>
     $(function () {
         @*Add a question to a questionnaire*@
         $("#SubmitAddQuestion").submit(function (e) {
@@ -48,18 +48,23 @@
         @* Add a proposal to a question *@
         $("#SubmitAddProposal").submit(function (e) {
             e.preventDefault();
-            var Entitled = $("#SubmitAddProposal #Entitled").val();
-
+            var Entitled = $("#SubmitAddProposal input#Entitled").val();
             var IsCorrect = false;
-            if ($('#SubmitAddProposal #IsCorrect').is(":checked")) {
-                IsCorrect = true;
-            }
-            var QuestionId = $("#SubmitAddProposal #QuestionId").val();
+            if ($('#SubmitAddProposal input#IsCorrect').is(":checked")) { IsCorrect = true; }
+            var QuestionId = $("#SubmitAddProposal input#QuestionId").val();
+            var ProposalId = $("#SubmitAddProposal input#Id").val();
             var token = $("#SubmitAddProposal input[name='__RequestVerificationToken']").val();
-            $.post("@(Url.Action("Add", "AdminProposal"))", { Entitled: Entitled, IsCorrect: IsCorrect, QuestionId: QuestionId, __RequestVerificationToken: token },
-                function (data) {
-                    $("#heading" + QuestionId).parent().replaceWith(data);
-                });
+            if (!ProposalId) {
+                $.post("@(Url.Action("Add", "AdminProposal"))", { Entitled: Entitled, IsCorrect: IsCorrect, QuestionId: QuestionId, __RequestVerificationToken: token },
+                    function (data) {
+                        $("#heading" + QuestionId).parent().replaceWith(data);
+                    });
+            } else {
+                $.post("@(Url.Action("Edit", "AdminProposal"))", { Entitled: Entitled, IsCorrect: IsCorrect, QuestionId: QuestionId, Id: ProposalId, __RequestVerificationToken: token },
+                    function (data) {
+                        $("#heading" + QuestionId).parent().replaceWith(data);
+                    });
+            }
         });
     });
 
@@ -67,10 +72,16 @@
     function eventClickAddProposal(IdQuestion) {
         var TitleQuestion = $("#TitleQuestion" + IdQuestion).text();
         $("#ModalLabel").text(TitleQuestion);
-        $("input#QuestionId").val(IdQuestion);
+        $("#SubmitAddProposal input#QuestionId").val(IdQuestion);
+        @*delete old data for ex after editing*@
+        $("#SubmitAddProposal input#Id").val("");
+        $("#SubmitAddProposal input#Entitled").val("");
+        $("#SubmitAddProposal input#IsCorrect").prop('checked', false);
+
         $('#ModalFormProposal').modal({
             keyboard: true
         });
+
         return false;
         }
 
@@ -99,5 +110,30 @@
             $("#SubmitAddQuestion input#Timer").val("");
             $("#LinkCancelModification").hide();
         }
-    </script>
+
+        @* Edit proposal *@
+        function eventClickEditProposal(IdProposal, IdQuestion) {
+            @* take old data *@
+            var EntitledToEdit = $("#EntitledEditProposal").text();
+            var IsCorrect = $("#IsCorrectEditProposal").text();
+            $("#SubmitAddProposal input#Id").val(IdQuestion);
+            @* build the modal window *@
+            var TitleQuestion = $("#TitleQuestion" + IdQuestion).text();
+            $("#ModalLabel").text(TitleQuestion);
+
+            $("#SubmitAddProposal input#QuestionId").val(IdQuestion);
+            $("#SubmitAddProposal input#Id").val(IdProposal);
+            $("#SubmitAddProposal input#Entitled").val(EntitledToEdit);
+            @* avoid changing the text of IsCorrect*@
+            $("#SubmitAddProposal input#IsCorrect").prop('checked', false);
+            if (IsCorrect == "True") {
+                $("#SubmitAddProposal input#IsCorrect").prop('checked', true);
+            }
+
+            $('#ModalFormProposal').modal({
+                keyboard: true
+            });
+            return false;
+        }
+</script>
 }

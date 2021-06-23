@@ -52,10 +52,29 @@ namespace WebApp.Controllers
             return NotFound();
         }
 
-        public async Task<bool> Edit(Proposal proposal)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Entitled, IsCorrect, QuestionId, Id")] Proposal proposal)
         {
+            //check if QuestionId in proposal is in bdd
+            Question question = await _questionBusiness.DetailAsync(proposal.QuestionId);
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            //check if this user have a permission, if this Questionnaire, Question belongs to him
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(question.QuestionnaireId, user.Id);
+            if (questionnaire == null)
+            {
+                return NotFound();
+            }
+
             await _proposalBusiness.EditAsync(proposal);
-            return true;
+            //this viewbag is for open the collapse when i edit some proposal
+            ViewBag.Show = "show";
+            return PartialView("_AccordionCard", question);
         }
 
         public async Task<bool> Delete(int id)
