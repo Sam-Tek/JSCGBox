@@ -61,8 +61,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("Entitled, Timer, QuestionnaireId, Id")] Question question)
         {
-            //check if question exist 
-            if (!await _questionBusiness.ExistAsync(question.Id))
+            //check if question exist and at the same time I get question from bdd 
+            Question questionBDD = await _questionBusiness.DetailAsync(question.Id);
+            if (questionBDD == null)
             {
                 return NotFound();
             }
@@ -74,8 +75,13 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            await _questionBusiness.EditAsync(question);
-            return PartialView("_AccordionCard", question);
+            //I use this kind of update because it is not possible to have 2 objects tracked on the same question
+            questionBDD.Entitled = question.Entitled;
+            questionBDD.Timer = question.Timer;
+            await _questionBusiness.EditAsync(questionBDD);
+
+            //I put questionbdd in parameter because question from form does not contain the proposals
+            return PartialView("_AccordionCard", questionBDD);
         }
 
         // GET: Question/Delete/5
