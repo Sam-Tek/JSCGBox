@@ -41,23 +41,20 @@ namespace WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Answer(Question question)
+        public async Task<IActionResult> Answer(List<int> proposals, int Id)
         {
             User user = await _userManager.GetUserAsync(User);
-            //Question question = await _questionBusiness.DetailAsync(id);
+            Question question = await _questionBusiness.DetailAsync(Id);
 
             Result result = await GetResult(user, question.Id);
 
-            if (question.Proposals != null)
+            if (proposals.Count > 0)
             {
-                foreach (Proposal proposal in question.Proposals)
+                foreach (Proposal proposal in question.Proposals.Where(p => proposals.Contains(p.Id)).ToList())
                 {
-                    if (proposal.Selected)
-                    {
                         // Create ResultProposal
                         await _proposalBusiness.CreateProposalResultAsync(proposal, result);
-                        await _resultBusiness.CreateResultProposalAsync(result, proposal);
-                    }
+                        //await _resultBusiness.CreateResultProposalAsync(result, proposal);
                 }
             }
             Question nextQuestion = await _questionBusiness.GetNextQuestionAsync(question);
@@ -67,7 +64,7 @@ namespace WebApp.Controllers
             }
             else
             {
-                // Redirection vers la page de résultats
+                //Redirection vers la page de résultats
                 return View();
             }
         }

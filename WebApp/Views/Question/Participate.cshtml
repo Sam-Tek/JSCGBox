@@ -10,13 +10,12 @@
     <input type="hidden" asp-for="Id" />
     <label asp-for="Entitled" class="control-label">@Model.Entitled</label>
     <ul>
-        @for (int i = 0; i < Model.Proposals.Count; i++)
+        @foreach (var proposal in Model.Proposals)
         {
-        <li>
-            <input type="checkbox" asp-for="@Model.Proposals.ToList()[i].Selected" />
-            <label asp-for="@Model.Proposals.ToList()[i].Selected">@Model.Proposals.ToList()[i].Entitled</label>
-            <input type="hidden" asp-for="@Model.Proposals.ToList()[i].Id" />
-        </li>
+            <li>
+                <input type="checkbox" name="proposals" value="@proposal.Id" />
+                <label for="proposals">@proposal.Entitled</label>
+            </li>
         }
     </ul>
     <button type="submit" class="btn btn-primary">Answer</button>
