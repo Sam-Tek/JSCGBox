@@ -26,14 +26,23 @@
         @*Add a question to a questionnaire*@
         $("#SubmitAddQuestion").submit(function (e) {
             e.preventDefault();
-            var Entitled = $("#SubmitAddQuestion #Entitled").val();
-            var Timer = $("#SubmitAddQuestion #Timer").val();
-            var QuestionnaireId = $("#SubmitAddQuestion #QuestionnaireId").val();
+            var Entitled = $("#SubmitAddQuestion input#Entitled").val();
+            var Timer = $("#SubmitAddQuestion input#Timer").val();
+            var QuestionnaireId = $("#SubmitAddQuestion input#QuestionnaireId").val();
+            var QuestionId = $("#SubmitAddQuestion input#Id").val();
             var token = $("#SubmitAddQuestion input[name='__RequestVerificationToken']").val();
-            $.post("@(Url.Action("Add", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, __RequestVerificationToken: token },
+            if (!QuestionId) {
+                $.post("@(Url.Action("Add", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, __RequestVerificationToken: token },
                 function (data) {
                     $("#accordion").append(data);
                 });
+            } else {
+                $.post("@(Url.Action("Edit", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, Id: QuestionId , __RequestVerificationToken: token },
+                function (data) {
+                    $("#heading" + QuestionId).parent().replaceWith(data);
+                    cancelModification();
+                });
+            }
         });
 
         @* Add a proposal to a question *@
@@ -70,6 +79,25 @@
             $.get("@(Url.Action("Delete", "AdminProposal"))/"+IdProposal, function (data) {
                 $("#proposal" + IdProposal).remove();
             });
+        }
+
+        @* Edit Question *@
+        $("#LinkCancelModification").hide();
+        function eventClickEditQuestion(IdQuestion) {
+            var EntitledToEdit = $("#EntitledEditQuestion" + IdQuestion).text();
+            var TimerToEdit = $("#TimerEditQuestion" + IdQuestion).text();
+            $("#SubmitAddQuestion input#Entitled").val(EntitledToEdit);
+            $("#SubmitAddQuestion input#Timer").val(TimerToEdit);
+            $("#SubmitAddQuestion input#Id").val(IdQuestion);
+            $("#LinkCancelModification").show();
+        }
+
+        @* Cancel modification, i need this function because the same form is for add and edit*@
+        function cancelModification() {
+            $("#SubmitAddQuestion input#Id").val("");
+            $("#SubmitAddQuestion input#Entitled").val("");
+            $("#SubmitAddQuestion input#Timer").val("");
+            $("#LinkCancelModification").hide();
         }
     </script>
 }

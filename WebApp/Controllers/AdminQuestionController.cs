@@ -59,10 +59,23 @@ namespace WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<bool> Edit(Question question)
+        public async Task<IActionResult> Edit([Bind("Entitled, Timer, QuestionnaireId, Id")] Question question)
         {
+            //check if question exist 
+            if (!await _questionBusiness.ExistAsync(question.Id))
+            {
+                return NotFound();
+            }
+            //check if this question belongs to the current user
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaireBdd = await _questionnaireBusiness.DetailByUserIdAsync(question.QuestionnaireId, user.Id);
+            if (questionnaireBdd == null)
+            {
+                return NotFound();
+            }
+
             await _questionBusiness.EditAsync(question);
-            return true;
+            return PartialView("_AccordionCard", question);
         }
 
         // GET: Question/Delete/5

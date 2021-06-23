@@ -44,8 +44,6 @@ namespace WebApp
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IProposalRepository, ProposalRepository>();
 
-            services.AddScoped<JSCGContext>();
-
             services.AddDbContext<JSCGContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(nameof(WebApp))));
