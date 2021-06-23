@@ -114,9 +114,9 @@
         @* Edit proposal *@
         function eventClickEditProposal(IdProposal, IdQuestion) {
             @* take old data *@
-            var EntitledToEdit = $("#EntitledEditProposal").text();
-            var IsCorrect = $("#IsCorrectEditProposal").text();
-            $("#SubmitAddProposal input#Id").val(IdQuestion);
+            var EntitledToEdit = $("#EntitledEditProposal" + IdProposal).text();
+            var IsCorrect = $("#IsCorrectEditProposal" + IdProposal).text();
+
             @* build the modal window *@
             var TitleQuestion = $("#TitleQuestion" + IdQuestion).text();
             $("#ModalLabel").text(TitleQuestion);
