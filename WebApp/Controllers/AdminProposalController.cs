@@ -58,10 +58,22 @@ namespace WebApp.Controllers
             return true;
         }
 
-        public async Task<bool> Remove(int id)
+        public async Task<bool> Delete(int id)
         {
+            //check if proposal exist in bdd
             Proposal proposal = await _proposalBusiness.DetailAsync(id);
             if (proposal is null)
+            {
+                return false;
+            }
+
+            //I don't need to check if QuestionId in proposal is in bdd because is not null in bdd
+            Question question = await _questionBusiness.DetailAsync(proposal.QuestionId);
+
+            //check if this user have a permission, if this Questionnaire, Question belongs to him
+            User user = await _userManager.GetUserAsync(User);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailByUserIdAsync(question.QuestionnaireId, user.Id);
+            if (questionnaire == null)
             {
                 return false;
             }

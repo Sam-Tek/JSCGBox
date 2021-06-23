@@ -20,7 +20,7 @@
             {
                 foreach (var proposal in Model.Proposals)
                 {
-                    <text>- @proposal.Entitled -> @proposal.IsCorrect<br /> </text>
+                    <span id="proposal@(proposal.Id)">- @proposal.Entitled -> @proposal.IsCorrect <a href="#TitleQuestion@(Model.Id)" onclick="eventClickDeleteProposal(@proposal.Id)">X</a><br /></span>
                 }
             }
         </div>

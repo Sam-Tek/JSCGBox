@@ -63,6 +63,13 @@
             keyboard: true
         });
         return false;
-    }
+        }
+
+        @* delete one proposal *@
+        function eventClickDeleteProposal(IdProposal) {
+            $.get("@(Url.Action("Delete", "AdminProposal"))/"+IdProposal, function (data) {
+                $("#proposal" + IdProposal).remove();
+            });
+        }
     </script>
 }
