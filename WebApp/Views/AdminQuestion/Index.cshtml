@@ -27,7 +27,14 @@
         $("#SubmitAddQuestion").submit(function (e) {
             e.preventDefault();
             var Entitled = $("#SubmitAddQuestion input#Entitled").val();
-            var Timer = $("#SubmitAddQuestion input#Timer").val();
+            var Timer = Number($("#SubmitAddQuestion input#Timer").val());
+            if (isNaN(Timer)) {
+                //Add error message
+                $("#SubmitAddQuestion span[data-valmsg-for='Timer']").text("Please enter a valid number.");
+                return;
+            }
+            //remove error message
+            $("#SubmitAddQuestion span[data-valmsg-for='Timer']").text("");
             var QuestionnaireId = $("#SubmitAddQuestion input#QuestionnaireId").val();
             var QuestionId = $("#SubmitAddQuestion input#Id").val();
             var token = $("#SubmitAddQuestion input[name='__RequestVerificationToken']").val();

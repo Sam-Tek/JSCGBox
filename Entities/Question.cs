@@ -9,6 +9,7 @@ namespace Entities
         public int Id { get; set; }
 
         [MaxLength(100)]
+        [Required]
         public string Entitled { get; set; }
 
         public int? Timer { get; set; } // En secondes
