@@ -16,9 +16,8 @@ namespace Repositories.Api
 
         public QuestionRepository()
         {
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("localhost:5002"),
+            _httpClient = new HttpClient{
+                BaseAddress = new Uri("https://localhost:5002/"),
                 Timeout = TimeSpan.FromSeconds(30)
             };
             
@@ -26,19 +25,25 @@ namespace Repositories.Api
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<IQueryable<Question>> GetQuestionsAsync()
+        public Task<IQueryable<Question>> GetQuestionsAsync()
         {
-            var response = await _httpClient.GetAsync("Question/Get");
-            return JsonSerializer.Deserialize<IQueryable<Question>>(response.Content.ToString() ?? string.Empty);
+            throw new NotImplementedException();
         }
 
         public async Task<IQueryable<Question>> GetQuestionsByQuestionnaireAsync(int questionnaireId)
         {
-            var response = await _httpClient.GetAsync($"Question/Get/{questionnaireId}");
-            return JsonSerializer.Deserialize<IQueryable<Question>>(response.Content.ToString() ?? string.Empty);
+            var response = await _httpClient.GetStreamAsync($"Question/Get/{questionnaireId}");
+            var question = JsonSerializer.Deserialize<Question[]>(response.ToString() ?? string.Empty);
+
+            return new EnumerableQuery<Question>(question ?? Array.Empty<Question>());
         }
 
         public Task<Question> DetailAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -54,6 +59,11 @@ namespace Repositories.Api
         }
 
         public Task DeleteAsync(Question result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Question> GetNextQuestionAsync(Question questionInProgress)
         {
             throw new NotImplementedException();
         }

@@ -13,21 +13,24 @@ namespace Repositories.Api
     {
         private HttpClient _httpClient;
 
+        
+
         public ProposalRepository()
         {
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri("localhost:5002"),
+                BaseAddress = new Uri("http://localhost:5002/"),
                 Timeout = TimeSpan.FromSeconds(30)
             };
-            
-            _httpClient.DefaultRequestHeaders.Accept.Clear();  
+
+            _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+
         public async Task<IQueryable<Proposal>> GetProposalsAsync()
         {
-            var response = await _httpClient.GetAsync("Proposal/Get");
-            return JsonSerializer.Deserialize<IQueryable<Proposal>>(response.Content.ToString() ?? string.Empty);
+            var response = await _httpClient.GetStreamAsync("/api/Proposals");
+            return await JsonSerializer.DeserializeAsync<IQueryable<Proposal>>(response);
         }
 
         public async Task<IQueryable<Proposal>> GetProposalsByQuestionAsync(int questionId)
@@ -54,6 +57,11 @@ namespace Repositories.Api
         public Task DeleteAsync(Proposal result)
         {
             throw new System.NotImplementedException();
+        }
+
+        public Task CreateProposalResultAsync(Proposal proposal, Result result)
+        {
+            throw new NotImplementedException();
         }
     }
 }
