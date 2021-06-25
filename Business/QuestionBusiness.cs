@@ -65,7 +65,9 @@ namespace Business
         public async Task<int> GetNextOrderQuestionAsync(Questionnaire questionnaire)
         {
             IQueryable<Question> questions = await GetQuestionsByQuestionnaireOrderAsync(questionnaire.Id);
-            return questions.LastOrDefault().Order + 1;
+            if (questions.Count() > 0)
+                return questions.LastOrDefault().Order + 1;
+            return 1;
         }
 
         public async Task<IQueryable<Question>> GetQuestionsByQuestionnaireOrderAsync(int questionnaireId)
