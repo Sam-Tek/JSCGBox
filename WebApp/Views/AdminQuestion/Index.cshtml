@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Entities.Question>
+﻿@model Entities.Questionnaire
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Question management</h1>
+<h1>Questionnaire @Model.Title</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,7 +12,7 @@
 <partial name="_FormAddQuestion" model="ViewBag.ModelQuestion" />
 
 <div id="accordion">
-    @foreach (var question in Model)
+    @foreach (var question in Model.Questions.OrderBy(q => q.Order))
     {
         <partial name="_AccordionCard" model="question" />
     }

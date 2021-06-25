@@ -36,7 +36,7 @@ namespace WebApp.Controllers
             //for create form of creation proposal
             ViewBag.ModelProposal = new Proposal();
 
-            return View(questionnaire.Questions.OrderBy( q => q.Order));
+            return View(questionnaire);
         }
 
         [HttpPost]
@@ -60,6 +60,12 @@ namespace WebApp.Controllers
                 else
                 {
                     question.Order = await _questionBusiness.OrderExistSoCreateAsync(questionnaire, question);
+                }
+
+                //convert timer 0 to null
+                if (question.Timer == 0)
+                {
+                    question.Timer = null;
                 }
                 question.Questionnaire = questionnaire;
                 await _questionBusiness.CreateAsync(question);
@@ -93,6 +99,12 @@ namespace WebApp.Controllers
             else
             {
                 question.Order = await _questionBusiness.OrderExistSoCreateAsync(questionnaireBdd, question);
+            }
+
+            //convert timer 0 to null
+            if (question.Timer == 0)
+            {
+                question.Timer = null;
             }
             //I use this kind of update because it is not possible to have 2 objects tracked on the same question
             questionBDD.Entitled = question.Entitled;
