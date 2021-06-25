@@ -67,5 +67,20 @@ namespace Repositories.Api
         {
             throw new NotImplementedException();
         }
+
+        public Task<IQueryable<Question>> GetQuestionsByQuestionnaireOrderAsync(int questionnaireId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> OrderExistAsync(Questionnaire questionnaire, int order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> OrderExistExcludeQuestionAsync(Questionnaire questionnaire, Question question)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
