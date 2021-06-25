@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.Questionnaire>
+﻿@model IEnumerable<Entities.Result>
 
 @{
     ViewData["Title"] = "Participated questionnaires";
@@ -13,42 +13,34 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Note
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DefaultTimer)
+                Response date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                Edit | Details | Delete
+                Delete
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var result in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @(result.Proposals.Count > 0 ? result.Proposals.FirstOrDefault().Question.Questionnaire.Title : "No responses")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @result.Note / 20
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DefaultTimer)
+                    @result.ResponseDate.ToShortDateString()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.Email)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@result.Id">Delete</a>
                 </td>
             </tr>
         }

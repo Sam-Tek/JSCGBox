@@ -54,9 +54,9 @@ namespace Business
         {
             return await _resultRepository.GetResultsByUserIdAsync(userId);
         }
-        public async Task<Result> GetResult(User user, int questionId)
+        public async Task<Result> GetResult(User user, int questionnaireId)
         {
-            Result result = await _proposalBusiness.GetResultByUserIdAndQuestionIdAndDateAsync(user.Id, questionId, DateTime.Today);
+            Result result = await _proposalBusiness.GetResultByUserIdAndQuestionnaireIdAndDateAsync(user.Id, questionnaireId, DateTime.Today);
             if (result == null)
             {
                 result = new Result() { ResponseDate = DateTime.Today, User = user, UserId = user.Id };

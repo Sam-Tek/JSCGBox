@@ -57,7 +57,7 @@ namespace WebApp.Controllers
             User user = await _userManager.GetUserAsync(User);
             Question question = await _questionBusiness.DetailAsync(Id);
 
-            Result result = await _resultBusiness.GetResult(user, question.Id);
+            Result result = await _resultBusiness.GetResult(user, question.QuestionnaireId);
 
             if (proposals.Count > 0)
             {

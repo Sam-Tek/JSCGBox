@@ -2,6 +2,7 @@
 using Entities;
 using Repositories.Contracts;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,10 +11,12 @@ namespace Business
     public class ProposalBusiness : IProposalBusiness
     {
         private IProposalRepository _proposalRepository;
+        private IQuestionRepository _questionRepository;
 
-        public ProposalBusiness(IProposalRepository proposalRepository)
+        public ProposalBusiness(IProposalRepository proposalRepository, IQuestionRepository questionRepository)
         {
             _proposalRepository = proposalRepository;
+            _questionRepository = questionRepository;
         }
 
         public async Task<IQueryable<Proposal>> GetProposalsAsync()
@@ -51,10 +54,15 @@ namespace Business
             await _proposalRepository.CreateProposalResultAsync(proposal, result);
         }
 
-        public async Task<Result> GetResultByUserIdAndQuestionIdAndDateAsync(string userId, int questionId, DateTime date)
+        public async Task<Result> GetResultByUserIdAndQuestionnaireIdAndDateAsync(string userId, int questionnaireId, DateTime date)
         {
             Result resultReturn = null;
-            var proposals = await _proposalRepository.GetProposalsByQuestionAsync(questionId);
+            var questions = await _questionRepository.GetQuestionsByQuestionnaireAsync(questionnaireId);
+            List<Proposal> proposals = new();
+            foreach (Question question in questions)
+            {
+                proposals.AddRange(await _proposalRepository.GetProposalsByQuestionAsync(question.Id));
+            }
 
             foreach (var proposal in proposals)
             {

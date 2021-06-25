@@ -14,11 +14,13 @@ namespace WebApp.Controllers
     {
         private UserManager<User> _userManager;
         private IQuestionnaireBusiness _questionnaireBusiness;
+        private IResultBusiness _resultBusiness;
 
-        public QuestionnaireController(UserManager<User> userManager, IQuestionnaireBusiness questionnaireBusiness)
+        public QuestionnaireController(UserManager<User> userManager, IQuestionnaireBusiness questionnaireBusiness, IResultBusiness resultBusiness)
         {
             _userManager = userManager;
             _questionnaireBusiness = questionnaireBusiness;
+            _resultBusiness = resultBusiness;
         }
 
         // GET
@@ -27,27 +29,27 @@ namespace WebApp.Controllers
         {
             User user = await _userManager.GetUserAsync(User);
             var results = user.Results;
-            var questionnaires = new List<Questionnaire>();
-            foreach (var result in results)
-            {
-                // Comme toutes les propositions liées à un résultat ne proviennent que d'un seul questionnaire,
-                // on peut récupérer la première proposition pour remonter au questionnaire
-                if (result.Proposals != null && result.Proposals.Count > 0)
-                {
-                    Proposal firstProposal = result.Proposals.FirstOrDefault();
-                    Question firstQuestion = firstProposal.Question;
-                    Questionnaire questionnaire = firstQuestion.Questionnaire;
-                    questionnaires.Add(questionnaire);
-                }
-            }
 
-            return View(questionnaires);
+            return View(results);
         }
 
         public async Task<IActionResult> Search()
         {
             var questionnaires = await _questionnaireBusiness.GetQuestionnairesAsync();
             return View(questionnaires);
+        }
+
+        // GET: Results/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            Result result = await _resultBusiness.DetailAsync(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            await _resultBusiness.DeleteAsync(result);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -23,6 +23,6 @@ namespace Business.Contracts
 
         public Task<IQueryable<Result>> GetResultsByUserIdAsync(string userId);
 
-        public Task<Result> GetResult(User user, int questionId);
+        public Task<Result> GetResult(User user, int questionnaireId);
     }
 }

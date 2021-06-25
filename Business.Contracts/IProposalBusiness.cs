@@ -23,6 +23,6 @@ namespace Business.Contracts
 
         public Task CreateProposalResultAsync(Proposal proposal, Result result);
 
-        public Task<Result> GetResultByUserIdAndQuestionIdAndDateAsync(string userId, int questionId, DateTime date);
+        public Task<Result> GetResultByUserIdAndQuestionnaireIdAndDateAsync(string userId, int questionnaireId, DateTime date);
     }
 }
