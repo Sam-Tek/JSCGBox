@@ -55,5 +55,38 @@ namespace Business
         {
             return await _questionRepository.GetNextQuestionAsync(questionInProgress);
         }
+
+        ///get the good number of order ex old question is 1, 2 and this method get 3
+        public async Task<int> GetNextOrderQuestionAsync(Questionnaire questionnaire)
+        {
+            IQueryable<Question> questions = await GetQuestionsByQuestionnaireOrderAsync(questionnaire.Id);
+            return questions.LastOrDefault().Order + 1;
+        }
+
+        public async Task<IQueryable<Question>> GetQuestionsByQuestionnaireOrderAsync(int questionnaireId)
+        {
+            return await _questionRepository.GetQuestionsByQuestionnaireOrderAsync(questionnaireId);
+        }
+
+        public async Task<int> OrderExistSoCreateAsync(Questionnaire questionnaire, Question question)
+        {
+            bool OrderExist;
+
+            if (question.Id == 0)
+            {
+                OrderExist = await _questionRepository.OrderExistAsync(questionnaire, question.Order);
+            }
+            else
+            {
+                OrderExist = await _questionRepository.OrderExistExcludeQuestionAsync(questionnaire, question);
+            }
+
+            //if it already exists we create a new one
+            if (OrderExist == true)
+            {
+                return await GetNextOrderQuestionAsync(questionnaire);
+            }
+            return question.Order;
+        }
     }
 }

@@ -37,14 +37,15 @@
             $("#SubmitAddQuestion span[data-valmsg-for='Timer']").text("");
             var QuestionnaireId = $("#SubmitAddQuestion input#QuestionnaireId").val();
             var QuestionId = $("#SubmitAddQuestion input#Id").val();
+            var OrderQuestion = $("#SubmitAddQuestion input#Order").val();
             var token = $("#SubmitAddQuestion input[name='__RequestVerificationToken']").val();
             if (!QuestionId) {
-                $.post("@(Url.Action("Add", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, __RequestVerificationToken: token },
+                $.post("@(Url.Action("Add", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, Order: OrderQuestion, __RequestVerificationToken: token },
                 function (data) {
                     $("#accordion").append(data);
                 });
             } else {
-                $.post("@(Url.Action("Edit", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, Id: QuestionId , __RequestVerificationToken: token },
+                $.post("@(Url.Action("Edit", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, Id: QuestionId, Order: OrderQuestion, __RequestVerificationToken: token },
                 function (data) {
                     $("#heading" + QuestionId).parent().replaceWith(data);
                     cancelModification();
@@ -104,9 +105,11 @@
         function eventClickEditQuestion(IdQuestion) {
             var EntitledToEdit = $("#EntitledEditQuestion" + IdQuestion).text();
             var TimerToEdit = $("#TimerEditQuestion" + IdQuestion).text();
+            var OrderToEdit = $("#OrderEditQuestion" + IdQuestion).text();
             $("#SubmitAddQuestion input#Entitled").val(EntitledToEdit);
             $("#SubmitAddQuestion input#Timer").val(TimerToEdit);
             $("#SubmitAddQuestion input#Id").val(IdQuestion);
+            $("#SubmitAddQuestion input#Order").val(OrderToEdit);
             $("#LinkCancelModification").show();
         }
 
@@ -115,6 +118,7 @@
             $("#SubmitAddQuestion input#Id").val("");
             $("#SubmitAddQuestion input#Entitled").val("");
             $("#SubmitAddQuestion input#Timer").val("");
+            $("#SubmitAddQuestion input#Order").val("");
             $("#LinkCancelModification").hide();
         }
 

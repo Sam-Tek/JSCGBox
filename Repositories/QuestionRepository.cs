@@ -30,6 +30,12 @@ namespace Repositories
             return questions.AsQueryable();
         }
 
+        public async Task<IQueryable<Question>> GetQuestionsByQuestionnaireOrderAsync(int questionnaireId)
+        {
+            var questions = await _context.Questions.Where(q => q.Questionnaire.Id == questionnaireId).OrderBy(q => q.Order).ToListAsync();
+            return questions.AsQueryable();
+        }
+
         public async Task<Question> DetailAsync(int id)
         {
             return await _context.Questions.FirstOrDefaultAsync(b => b.Id == id);
@@ -61,6 +67,18 @@ namespace Repositories
         public async Task<Question> GetNextQuestionAsync(Question questionInProgress)
         {
             return await _context.Questions.FirstOrDefaultAsync(q => q.Questionnaire.Id == questionInProgress.QuestionnaireId && q.Order == (questionInProgress.Order + 1));
+        }
+
+        //check if this order already exists in bdd
+        public async Task<bool> OrderExistAsync(Questionnaire questionnaire, int order)
+        {
+           return await _context.Questions.AnyAsync(q => q.QuestionnaireId == questionnaire.Id && q.Order == order);
+        }
+
+        /// <summary>check if this order already exists in bdd and exclude a question, for edition of question</summary>
+        public async Task<bool> OrderExistExcludeQuestionAsync(Questionnaire questionnaire, Question question)
+        {
+            return await _context.Questions.AnyAsync(q => q.QuestionnaireId == questionnaire.Id && q.Order == question.Order && q.Id != question.Id);
         }
     }
 }
