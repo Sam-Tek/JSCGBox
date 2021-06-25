@@ -68,11 +68,7 @@ namespace Repositories.Api
             throw new NotImplementedException();
         }
 
-        public Task<Question> GetFirstQuestionAsync(Questionnaire questionnaire)
-        {
-            throw new NotImplementedException();
-        }
-
+<<<<<<< HEAD
         public Task<IQueryable<Question>> GetQuestionsByQuestionnaireOrderAsync(int questionnaireId)
         {
             throw new NotImplementedException();
@@ -84,6 +80,9 @@ namespace Repositories.Api
         }
 
         public Task<bool> OrderExistExcludeQuestionAsync(Questionnaire questionnaire, Question question)
+=======
+        public Task<Question> GetFirstQuestionAsync(Questionnaire questionnaire)
+>>>>>>> 532905cb9e532e3df7ef937528e1aa357f6f2452
         {
             throw new NotImplementedException();
         }

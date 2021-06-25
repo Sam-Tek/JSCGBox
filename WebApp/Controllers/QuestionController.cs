@@ -29,16 +29,23 @@ namespace WebApp.Controllers
             _resultBusiness = resultBusiness;
         }
 
-        public async Task<ActionResult> Participate(int id, int order)
+        public async Task<ActionResult> Participate(int questionnaireId, int order, bool isFirstQuestion)
         {
-            Questionnaire questionnaire = await _questionnaireBusiness.DetailAsync(id);
+            Questionnaire questionnaire = await _questionnaireBusiness.DetailAsync(questionnaireId);
 
             if (questionnaire == null)
             {
                 return NotFound();
             }
-
-            Question question = questionnaire.Questions.FirstOrDefault(q => q.Order == order);
+            Question question;
+            if (isFirstQuestion)
+            {
+                question = await _questionBusiness.GetFirstQuestionAsync(questionnaire);
+            }
+            else
+            {
+                question = questionnaire.Questions.FirstOrDefault(q => q.Order == order);
+            }
 
             return View(question);
         }
@@ -64,39 +71,13 @@ namespace WebApp.Controllers
             if (nextQuestion != null)
             {
                 // Redirection vers la question suivante
-                return RedirectToAction(nameof(Participate), new { id = nextQuestion.QuestionnaireId, order = nextQuestion.Order });
+                return RedirectToAction(nameof(Participate), new { questionnaireId = nextQuestion.QuestionnaireId, order = nextQuestion.Order, isFirstQuestion = false });
             }
             else
             {
                 //Redirection vers la page de résultats
-                return RedirectToAction("", "Result", new { id = result.Id });
+                return RedirectToAction("Index", "Result", new { id = result.Id });
             }
         }
-
-        ////public void ManageTimer(Questionnaire questionnaire, Question question)
-        ////{
-        ////    duration = question.Timer ?? questionnaire.DefaultTimer;
-
-        ////    Timer timer = new Timer();
-        ////    timer.Interval = 1000; //1 sec
-        ////    timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-        ////    timer.Enabled = true;
-        ////    timer.Start();
-        ////}
-
-        ////private void OnTimedEvent(object source, ElapsedEventArgs e)
-        ////{
-        ////    if (duration == 0)
-        ////    {
-        ////        ((Timer)source).Stop();
-        ////        // Redirection vers la question suivante
-        ////        return RedirectToAction(nameof(Participate), new { id = nextQuestion.QuestionnaireId, order = nextQuestion.Order });
-        ////    }
-        ////    else if (duration > 0)
-        ////    {
-        ////        duration--;
-        ////        ViewBag.Countdown = duration.ToString();
-        ////    }
-        ////}
     }
 }

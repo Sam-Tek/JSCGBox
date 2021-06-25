@@ -23,6 +23,8 @@ namespace Repositories.Contracts
 
         public Task DeleteAsync(Question result);
 
+        public Task<Question> GetFirstQuestionAsync(Questionnaire questionnaire);
+
         public Task<Question> GetNextQuestionAsync(Question questionInProgress);
 
         /// <summary>check if this order already exists in bdd</summary>

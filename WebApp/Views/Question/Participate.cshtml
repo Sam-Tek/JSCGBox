@@ -8,7 +8,7 @@
 <hr />
 
 <form asp-action="Answer">
-    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="@Model.Id" />
     <h4><span id="Countdown">@(Model.Timer ?? Model.Questionnaire.DefaultTimer)</span> <label asp-for="Entitled" class="control-label">@Model.Entitled</label></h4>
     <ul>
         @foreach (var proposal in Model.Proposals)

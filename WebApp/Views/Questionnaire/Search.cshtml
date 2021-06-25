@@ -37,7 +37,7 @@
                     @item.User.FirstName @item.User.LastName
                 </td>
                 <td>
-                    @Html.ActionLink("Participate", "Participate", "Question", new { id = item.Id, order = 1 })
+                    @Html.ActionLink("Participate", "Participate", "Question", new { questionnaireId = item.Id, order = 1, isFirstQuestion = true })
                 </td>
             </tr>
         }

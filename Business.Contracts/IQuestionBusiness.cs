@@ -23,6 +23,8 @@ namespace Business.Contracts
 
         public Task DeleteAsync(Question result);
 
+        public Task<Question> GetFirstQuestionAsync(Questionnaire questionnaire);
+
         public Task<Question> GetNextQuestionAsync(Question questionInProgress);
 
         ///<summary>get the good number of order ex old question is 1, 2 and this method get 3</summary>
