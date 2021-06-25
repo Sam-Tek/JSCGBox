@@ -25,6 +25,8 @@ namespace Business.Contracts
 
         public Task DeleteAsync(Question result);
 
+        public Task<Question> GetFirstQuestionAsync(Questionnaire questionnaire);
+
         public Task<Question> GetNextQuestionAsync(Question questionInProgress);
     }
 }

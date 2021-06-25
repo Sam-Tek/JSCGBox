@@ -58,9 +58,14 @@ namespace Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Question> GetFirstQuestionAsync(Questionnaire questionnaire)
+        {
+            return await _context.Questions.OrderBy(q => q.Order).FirstOrDefaultAsync(q => q.Questionnaire.Id == questionnaire.Id);
+        }
+
         public async Task<Question> GetNextQuestionAsync(Question questionInProgress)
         {
-            return await _context.Questions.FirstOrDefaultAsync(q => q.Questionnaire.Id == questionInProgress.QuestionnaireId && q.Order == (questionInProgress.Order + 1));
+            return await _context.Questions.OrderBy(q => q.Order).FirstOrDefaultAsync(q => q.Questionnaire.Id == questionInProgress.QuestionnaireId && q.Order > questionInProgress.Order);
         }
     }
 }

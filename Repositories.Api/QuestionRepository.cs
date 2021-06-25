@@ -67,5 +67,10 @@ namespace Repositories.Api
         {
             throw new NotImplementedException();
         }
+
+        public Task<Question> GetFirstQuestionAsync(Questionnaire questionnaire)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
