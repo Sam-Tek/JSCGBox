@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Business.Contracts;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace WebApp.Controllers
             //for create form of creation proposal
             ViewBag.ModelProposal = new Proposal();
 
-            return View(questionnaire.Questions);
+            return View(questionnaire.Questions.OrderBy( q => q.Order));
         }
 
         [HttpPost]
