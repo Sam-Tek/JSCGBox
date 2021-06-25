@@ -7,7 +7,7 @@
 <h2>Participation in the questionnaire : @Model.Questionnaire.Title</h2>
 <hr />
 
-<form asp-action="Answer">
+<form asp-action="Answer" id="SubmitAnswer">
     <input type="hidden" asp-for="@Model.Id" />
     <h4><span id="Countdown">@(Model.Timer ?? Model.Questionnaire.DefaultTimer)</span> <label asp-for="Entitled" class="control-label">@Model.Entitled</label></h4>
     <ul>
@@ -39,7 +39,9 @@
                 if (time == 0) {
                     $timer.text('temps écoulé');
                     clearInterval(intervalId);
-                    //bloquer la réponse ou rediriger ici
+                    setTimeout(function () {
+                        $("#SubmitAnswer").submit();
+                    }, 1000);
                 }
                 else {
                     $timer.text(time);
