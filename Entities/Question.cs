@@ -18,6 +18,7 @@ namespace Entities
         [JsonPropertyName("timer")]
         public int? Timer { get; set; } // En secondes
 
+        [Required]
         [JsonPropertyName("order")]
         public int Order { get; set; }
 
