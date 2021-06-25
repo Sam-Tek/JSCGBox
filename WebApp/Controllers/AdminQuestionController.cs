@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Business.Contracts;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -35,12 +36,12 @@ namespace WebApp.Controllers
             //for create form of creation proposal
             ViewBag.ModelProposal = new Proposal();
 
-            return View(questionnaire.Questions);
+            return View(questionnaire.Questions.OrderBy( q => q.Order));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add([Bind("Entitled, Timer, QuestionnaireId")] Question question)
+        public async Task<IActionResult> Add([Bind("Entitled, Timer, Order, QuestionnaireId")] Question question)
         {
             if (ModelState.IsValid)
             {
@@ -49,6 +50,16 @@ namespace WebApp.Controllers
                 if (questionnaire == null)
                 {
                     return NotFound();
+                }
+
+                //management of the order of questions
+                if (question.Order == 0)
+                {
+                   question.Order = await _questionBusiness.GetNextOrderQuestionAsync(questionnaire);
+                }
+                else
+                {
+                    question.Order = await _questionBusiness.OrderExistSoCreateAsync(questionnaire, question);
                 }
                 question.Questionnaire = questionnaire;
                 await _questionBusiness.CreateAsync(question);
@@ -59,7 +70,7 @@ namespace WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Entitled, Timer, QuestionnaireId, Id")] Question question)
+        public async Task<IActionResult> Edit([Bind("Entitled, Timer, Order, QuestionnaireId, Id")] Question question)
         {
             //check if question exist and at the same time I get question from bdd 
             Question questionBDD = await _questionBusiness.DetailAsync(question.Id);
@@ -74,10 +85,19 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
+            //management of the order of questions
+            if (question.Order == 0)
+            {
+                question.Order = await _questionBusiness.GetNextOrderQuestionAsync(questionnaireBdd);
+            }
+            else
+            {
+                question.Order = await _questionBusiness.OrderExistSoCreateAsync(questionnaireBdd, question);
+            }
             //I use this kind of update because it is not possible to have 2 objects tracked on the same question
             questionBDD.Entitled = question.Entitled;
             questionBDD.Timer = question.Timer;
+            questionBDD.Order = question.Order;
             await _questionBusiness.EditAsync(questionBDD);
 
             //I put questionbdd in parameter because question from form does not contain the proposals
