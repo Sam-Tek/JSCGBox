@@ -12,10 +12,12 @@ namespace Business
     public class ResultBusiness : IResultBusiness
     {
         private IResultRepository _resultRepository;
+        private IProposalBusiness _proposalBusiness;
 
-        public ResultBusiness(IResultRepository resultRepository)
+        public ResultBusiness(IResultRepository resultRepository, IProposalBusiness proposalBusiness)
         {
             _resultRepository = resultRepository;
+            _proposalBusiness = proposalBusiness;
         }
 
         public async Task<IQueryable<Result>> GetResultsAsync()
@@ -51,6 +53,16 @@ namespace Business
         public async Task<IQueryable<Result>> GetResultsByUserIdAsync(string userId)
         {
             return await _resultRepository.GetResultsByUserIdAsync(userId);
+        }
+        public async Task<Result> GetResult(User user, int questionId)
+        {
+            Result result = await _proposalBusiness.GetResultByUserIdAndQuestionIdAndDateAsync(user.Id, questionId, DateTime.Today);
+            if (result == null)
+            {
+                result = new Result() { ResponseDate = DateTime.Today, User = user, UserId = user.Id };
+                await CreateAsync(result);
+            }
+            return result;
         }
     }
 }

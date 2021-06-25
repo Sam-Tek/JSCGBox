@@ -22,5 +22,7 @@ namespace Business.Contracts
         public Task CreateResultProposalAsync(Result result, Proposal proposal);
 
         public Task<IQueryable<Result>> GetResultsByUserIdAsync(string userId);
+
+        public Task<Result> GetResult(User user, int questionId);
     }
 }

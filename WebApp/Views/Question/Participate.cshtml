@@ -4,11 +4,12 @@
     ViewData["Title"] = "Participation in a questionnaire";
 }
 
-<h2>Participation in a questionnaire</h2>
+<h2>Participation in the questionnaire : @Model.Questionnaire.Title</h2>
+<hr />
 
 <form asp-action="Answer">
     <input type="hidden" asp-for="Id" />
-    <h4><label asp-for="Entitled" class="control-label">@Model.Entitled</label></h4>
+    <h4><span id="Countdown">@(Model.Timer ?? Model.Questionnaire.DefaultTimer)</span> <label asp-for="Entitled" class="control-label">@Model.Entitled</label></h4>
     <ul>
         @foreach (var proposal in Model.Proposals)
         {
@@ -21,8 +22,35 @@
     <button type="submit" class="btn btn-primary">Answer</button>
 </form>
 
-<style>
-    ul{
-        list-style-type: none;
-    }
-</style>
+@section Scripts {
+    <script>
+        $(function () {
+            displayCountdown();
+        });
+        function displayCountdown() {
+            var $timer = $('#Countdown')
+            var intervalId = setInterval(() => {
+                var time = Number($timer.text().trim());
+                if (isNaN(time)) {
+                    console.log("timer n'est pas un nombre");
+                    return;
+                }
+                time = Math.round(time - 1);
+                if (time == 0) {
+                    $timer.text('temps écoulé');
+                    clearInterval(intervalId);
+                    //bloquer la réponse ou rediriger ici
+                }
+                else {
+                    $timer.text(time);
+                }
+            }, 1000)
+        };
+    </script>
+}
+
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>

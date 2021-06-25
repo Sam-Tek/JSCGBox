@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace WebApp.Controllers
 {
@@ -16,6 +17,8 @@ namespace WebApp.Controllers
         private IQuestionBusiness _questionBusiness;
         private IProposalBusiness _proposalBusiness;
         private IResultBusiness _resultBusiness;
+
+        //private int duration;
 
         public QuestionController(UserManager<User> userManager, IQuestionnaireBusiness questionnaireBusiness, IQuestionBusiness questionBusiness, IProposalBusiness proposalBusiness, IResultBusiness resultBusiness)
         {
@@ -36,6 +39,7 @@ namespace WebApp.Controllers
             }
 
             Question question = questionnaire.Questions.FirstOrDefault(q => q.Order == order);
+
             return View(question);
         }
 
@@ -46,37 +50,53 @@ namespace WebApp.Controllers
             User user = await _userManager.GetUserAsync(User);
             Question question = await _questionBusiness.DetailAsync(Id);
 
-            Result result = await GetResult(user, question.Id);
+            Result result = await _resultBusiness.GetResult(user, question.Id);
 
             if (proposals.Count > 0)
             {
                 foreach (Proposal proposal in question.Proposals.Where(p => proposals.Contains(p.Id)).ToList())
                 {
-                        // Create ResultProposal
-                        await _proposalBusiness.CreateProposalResultAsync(proposal, result);
+                    // Create ResultProposal
+                    await _proposalBusiness.CreateProposalResultAsync(proposal, result);
                 }
             }
             Question nextQuestion = await _questionBusiness.GetNextQuestionAsync(question);
             if (nextQuestion != null)
             {
+                // Redirection vers la question suivante
                 return RedirectToAction(nameof(Participate), new { id = nextQuestion.QuestionnaireId, order = nextQuestion.Order });
             }
             else
             {
-                //Redirection vers la page de résultats en WPF
-                return View();
+                //Redirection vers la page de résultats
+                return RedirectToAction("", "Result", new { id = result.Id });
             }
         }
 
-        public async Task<Result> GetResult(User user, int questionId)
-        {
-            Result result = await _proposalBusiness.GetResultByUserIdAndQuestionIdAndDateAsync(user.Id, questionId, DateTime.Today);
-            if (result == null)
-            {
-                result = new Result() { ResponseDate = DateTime.Today, User = user, UserId = user.Id };
-                await _resultBusiness.CreateAsync(result);
-            }
-            return result;
-        }
+        ////public void ManageTimer(Questionnaire questionnaire, Question question)
+        ////{
+        ////    duration = question.Timer ?? questionnaire.DefaultTimer;
+
+        ////    Timer timer = new Timer();
+        ////    timer.Interval = 1000; //1 sec
+        ////    timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+        ////    timer.Enabled = true;
+        ////    timer.Start();
+        ////}
+
+        ////private void OnTimedEvent(object source, ElapsedEventArgs e)
+        ////{
+        ////    if (duration == 0)
+        ////    {
+        ////        ((Timer)source).Stop();
+        ////        // Redirection vers la question suivante
+        ////        return RedirectToAction(nameof(Participate), new { id = nextQuestion.QuestionnaireId, order = nextQuestion.Order });
+        ////    }
+        ////    else if (duration > 0)
+        ////    {
+        ////        duration--;
+        ////        ViewBag.Countdown = duration.ToString();
+        ////    }
+        ////}
     }
 }
