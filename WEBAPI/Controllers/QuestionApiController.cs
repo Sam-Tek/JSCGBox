@@ -11,12 +11,12 @@ namespace WEBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionController : ControllerBase
+    public class QuestionApiController : ControllerBase
     {
         private IQuestionBusiness _business;
        
 
-        public QuestionController(IQuestionBusiness business)
+        public QuestionApiController(IQuestionBusiness business)
         {
     
             _business = business;

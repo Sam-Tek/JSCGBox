@@ -11,11 +11,11 @@ namespace WEBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProposalController : ControllerBase
+    public class ProposalApiController : ControllerBase
     {
         private IProposalBusiness _business;
 
-        public ProposalController(IProposalBusiness business)
+        public ProposalApiController(IProposalBusiness business)
         {
             _business = business;
         }
