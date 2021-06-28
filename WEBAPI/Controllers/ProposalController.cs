@@ -14,24 +14,17 @@ namespace WEBAPI.Controllers
     public class ProposalController : ControllerBase
     {
         private IProposalBusiness _business;
- 
+
         public ProposalController(IProposalBusiness business)
         {
             _business = business;
         }
 
 
-
-        [HttpGet("{questionId}")]
-         public async Task<IQueryable<Proposal>> GetProposalsByQuestionAsync(int questionId)
+        [HttpGet("ByQuestion/{questionId}")]
+        public async Task<Proposal[]> GetProposalsByQuestionAsync(int questionId)
         {
-            return await _business.GetProposalsByQuestionAsync(questionId);
-         }
-
-        [HttpGet]
-        public async Task<IQueryable<Proposal>> GetProposalsAsync()
-        {
-            return await _business.GetProposalsAsync();
+            return (await _business.GetProposalsByQuestionAsync(questionId)).ToArray();
         }
 
         [HttpGet("{id}")]
@@ -39,6 +32,7 @@ namespace WEBAPI.Controllers
         {
             return await _business.DetailAsync(id);
         }
+
         [HttpPost]
         public async Task<bool> CreateAsync(Proposal proposal)
         {
@@ -53,6 +47,7 @@ namespace WEBAPI.Controllers
 
             return true;
         }
+
         [HttpDelete("{proposal}")]
         public async Task<bool> DeleteAsync(Proposal proposal)
         {
@@ -60,10 +55,5 @@ namespace WEBAPI.Controllers
 
             return true;
         }
-
-
-
-
-
     }
 }

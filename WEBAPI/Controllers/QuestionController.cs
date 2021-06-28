@@ -11,12 +11,12 @@ namespace WEBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionsController : ControllerBase
+    public class QuestionController : ControllerBase
     {
         private IQuestionBusiness _business;
        
 
-        public QuestionsController(IQuestionBusiness business)
+        public QuestionController(IQuestionBusiness business)
         {
     
             _business = business;
@@ -29,11 +29,11 @@ namespace WEBAPI.Controllers
             return (await _business.GetQuestionsAsync()).ToArray();
         }
 
-        [HttpGet("{questionnaireId}")]
+        [HttpGet("ByQuestionnaire/{questionnaireId}")]
 
-        public async Task<IQueryable<Question>> GetQuestionsByQuestionnaireAsync(int questionnaireId)
+        public async Task<Question[]> GetQuestionsByQuestionnaireAsync(int questionnaireId)
         {
-            return await _business.GetQuestionsByQuestionnaireAsync(questionnaireId);
+            return (await _business.GetQuestionsByQuestionnaireAsync(questionnaireId)).ToArray();
         }
 
         [HttpGet("{id}")]
@@ -63,15 +63,6 @@ namespace WEBAPI.Controllers
             await _business.DeleteAsync(result);
             return true;
         }
-
-
-
-
-        //[HttpGet("{id}")]
-        // public async Task<ActionResult<Question>> GetQuestionsByQuestionnaireAsync(int id)
-        //{
-        //    return await _business.GetQuestionsByQuestionnaireAsync(id);
-        // }
 
     }
 }
