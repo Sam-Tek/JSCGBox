@@ -31,10 +31,10 @@
         {
             <tr>
                 <td>
-                    @(result.Proposals.Count > 0 ? result.Proposals.FirstOrDefault().Question.Questionnaire.Title : "No responses")
+                    @(result.Proposals.Count > 0 ? result.Proposals.FirstOrDefault().Question.Questionnaire.Title : "No response")
                 </td>
                 <td>
-                    @result.Note / 20
+                    @(result.Note != null ? result.Note : 0) / 20
                 </td>
                 <td>
                     @result.ResponseDate.ToShortDateString()
