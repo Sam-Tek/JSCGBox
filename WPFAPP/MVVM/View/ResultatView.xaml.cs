@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity;
+using WPFAPP.MVVM.ViewModel;
 
 namespace WPFAPP.MVVM.View
 {
@@ -20,8 +22,11 @@ namespace WPFAPP.MVVM.View
     /// </summary>
     public partial class ResultatView : UserControl
     {
-        public ResultatView()
+        private IUnityContainer _unityContainer;
+        public ResultatView(IUnityContainer unityContainer)
         {
+            _unityContainer = unityContainer;
+            DataContext = _unityContainer.Resolve<ResultatViewModel>();
             InitializeComponent();
         }
     }

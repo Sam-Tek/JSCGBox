@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Unity;
 using WPFAPP.Core;
+using WPFAPP.MVVM.View;
 
 namespace WPFAPP.MVVM.ViewModel
 {
@@ -12,8 +15,8 @@ namespace WPFAPP.MVVM.ViewModel
 
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand ResultatViewCommand { get; set; }
-        public HomeViewModel HomeVM { get; set; }
-        public ResultatViewModel ResultatVM { get; set; }
+        public HomeView HomeVM { get; set; }
+        public ResultatView ResultatVM { get; set; }
 
         private object _currentView;
         public object CurrentView
@@ -25,10 +28,14 @@ namespace WPFAPP.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public MainViewModel()
+
+        private IUnityContainer _unityContainer;
+        
+        public MainViewModel(IUnityContainer unityContainer)
         {
-            HomeVM = new HomeViewModel();
-            ResultatVM = new ResultatViewModel();
+            _unityContainer = unityContainer;
+            HomeVM = _unityContainer.Resolve<HomeView>();
+            ResultatVM = _unityContainer.Resolve<ResultatView>();
             CurrentView = HomeVM;
 
             HomeViewCommand = new RelayCommand(o =>
