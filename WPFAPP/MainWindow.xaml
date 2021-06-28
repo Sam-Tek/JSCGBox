@@ -11,11 +11,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WPFAPP"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModel="clr-namespace:WPFAPP.MVVM.ViewModel"
+    xmlns:viewModel="clr-namespace:WPFAPP.ViewModel"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Window.DataContext>
-        <viewModel:MainViewModel />
-    </Window.DataContext>
     <Border Background="#272537" CornerRadius="20">
         <Grid>
             <Grid.ColumnDefinitions>

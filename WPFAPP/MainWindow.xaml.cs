@@ -17,7 +17,7 @@ using Business.Contracts;
 using Repositories;
 using Repositories.Contracts;
 using Unity;
-using WPFAPP.MVVM.ViewModel;
+using WPFAPP.ViewModel;
 
 namespace WPFAPP
 {

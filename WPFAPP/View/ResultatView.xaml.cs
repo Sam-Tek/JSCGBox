@@ -13,9 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Unity;
-using WPFAPP.MVVM.ViewModel;
+using WPFAPP.ViewModel;
 
-namespace WPFAPP.MVVM.View
+namespace WPFAPP.View
 {
     /// <summary>
     /// Logique d'interaction pour ResultatView.xaml

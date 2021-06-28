@@ -19,7 +19,7 @@ namespace Repositories.Api
         {
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri("http://localhost:5002/"),
+                BaseAddress = new Uri("http://localhost:5001/"),
                 Timeout = TimeSpan.FromSeconds(30)
             };
 

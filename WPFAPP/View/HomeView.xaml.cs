@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFAPP.MVVM.View
+namespace WPFAPP.View
 {
     /// <summary>
     /// Logique d'interaction pour HomeView.xaml

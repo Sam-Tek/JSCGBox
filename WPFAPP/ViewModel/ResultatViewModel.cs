@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Business.Contracts;
 using Entities;
 
-namespace WPFAPP.MVVM.ViewModel
+namespace WPFAPP.ViewModel
 {
     class ResultatViewModel
     {
@@ -20,6 +20,11 @@ namespace WPFAPP.MVVM.ViewModel
             _questionnaireBusiness = questionnaireBusiness;
             Questionnaires = new ObservableCollection<Questionnaire>();
             LoadQuestionnaires();
+        }
+
+        public ResultatViewModel()
+        {
+            throw new NotImplementedException();
         }
 
         public async void LoadQuestionnaires()

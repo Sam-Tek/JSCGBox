@@ -10,8 +10,8 @@ using Business.Contracts;
 using Repositories.Api;
 using Repositories.Contracts;
 using Unity;
-using WPFAPP.MVVM.View;
-using WPFAPP.MVVM.ViewModel;
+using WPFAPP.View;
+using WPFAPP.ViewModel;
 
 namespace WPFAPP
 {

@@ -17,7 +17,7 @@ namespace Repositories.Api
         public QuestionRepository()
         {
             _httpClient = new HttpClient{
-                BaseAddress = new Uri("https://localhost:5002/"),
+                BaseAddress = new Uri("https://localhost:5001/"),
                 Timeout = TimeSpan.FromSeconds(30)
             };
             

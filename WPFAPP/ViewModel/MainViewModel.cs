@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Unity;
 using WPFAPP.Core;
-using WPFAPP.MVVM.View;
+using WPFAPP.View;
 
-namespace WPFAPP.MVVM.ViewModel
+namespace WPFAPP.ViewModel
 {
     class MainViewModel : ObservableObject
     {

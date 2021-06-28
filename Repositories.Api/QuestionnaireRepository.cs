@@ -17,7 +17,7 @@ namespace Repositories.Api
         public QuestionnaireRepository()
         {
             _httpClient = new HttpClient{
-                BaseAddress = new Uri("https://localhost:5002/"),
+                BaseAddress = new Uri("https://localhost:5001/"),
                 Timeout = TimeSpan.FromSeconds(30)
             };
             
@@ -26,7 +26,7 @@ namespace Repositories.Api
 
         public async Task<IQueryable<Questionnaire>> GetQuestionnairesAsync()
         {
-            var response = _httpClient.GetStreamAsync("/api/Questionnaires");
+            var response = _httpClient.GetStreamAsync("/api/Questionnaire");
             var questionnaires = await JsonSerializer.DeserializeAsync<Questionnaire[]>(await response) ?? Array.Empty<Questionnaire>();
 
             return new EnumerableQuery<Questionnaire>(questionnaires);

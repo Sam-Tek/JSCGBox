@@ -1,10 +1,9 @@
 ﻿<Application
-    StartupUri="MainWindow.xaml"
     x:Class="WPFAPP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:local="clr-namespace:WPFAPP"
-    xmlns:view="clr-namespace:WPFAPP.MVVM.View"
-    xmlns:viewModel="clr-namespace:WPFAPP.MVVM.ViewModel"
+    xmlns:view="clr-namespace:WPFAPP.View"
+    xmlns:viewModel="clr-namespace:WPFAPP.ViewModel"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -12,15 +11,6 @@
                 <ResourceDictionary Source="theme/MenuButtonTheme.xaml" />
                 <ResourceDictionary Source="theme/TextBoxTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-
-            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-                <view:HomeView />
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModel:ResultatViewModel}">
-                <view:ResultatView />
-            </DataTemplate>
         </ResourceDictionary>
 
     </Application.Resources>
