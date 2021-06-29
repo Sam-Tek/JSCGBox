@@ -7,17 +7,21 @@ using System.Threading.Tasks;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Contracts;
+using Microsoft.Extensions.Configuration;
 
 namespace Repositories.Api
 {
     public class QuestionnaireRepository : IQuestionnaireRepository
     {
         private readonly HttpClient _httpClient;
+        private readonly IConfiguration _configuration;
         // GET
-        public QuestionnaireRepository()
+        public QuestionnaireRepository(IConfiguration configuration)
         {
+            _configuration = configuration;
+
             _httpClient = new HttpClient{
-                BaseAddress = new Uri("https://localhost:5001/"),
+                BaseAddress = new Uri(_configuration["ApiUrl"]),
                 Timeout = TimeSpan.FromSeconds(30)
             };
             

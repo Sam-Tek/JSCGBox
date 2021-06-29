@@ -8,11 +8,11 @@ namespace WEBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionnaireController : ControllerBase
+    public class QuestionnaireApiController : ControllerBase
     {
         private readonly IQuestionnaireBusiness _business;
 
-        public QuestionnaireController(IQuestionnaireBusiness business)
+        public QuestionnaireApiController(IQuestionnaireBusiness business)
         {
             _business = business;
         }

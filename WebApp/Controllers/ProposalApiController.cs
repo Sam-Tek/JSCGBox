@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace WEBAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Proposal")]
     [ApiController]
-    public class ProposalController : ControllerBase
+    public class ProposalApiController : ControllerBase
     {
         private IProposalBusiness _business;
 
-        public ProposalController(IProposalBusiness business)
+        public ProposalApiController(IProposalBusiness business)
         {
             _business = business;
         }
