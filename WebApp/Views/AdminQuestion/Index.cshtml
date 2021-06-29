@@ -5,12 +5,9 @@
 }
 
 <h1>Questionnaire @Model.Title</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<hr />
 <partial name="_FormAddQuestion" model="ViewBag.ModelQuestion" />
-
+<hr />
 <div id="accordion">
     @foreach (var question in Model.Questions.OrderBy(q => q.Order))
     {
@@ -43,6 +40,7 @@
                 $.post("@(Url.Action("Add", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, Order: OrderQuestion, __RequestVerificationToken: token },
                 function (data) {
                     $("#accordion").append(data);
+                    cancelModification();
                 });
             } else {
                 $.post("@(Url.Action("Edit", "AdminQuestion"))", { Entitled: Entitled, Timer: Timer, QuestionnaireId: QuestionnaireId, Id: QuestionId, Order: OrderQuestion, __RequestVerificationToken: token },
@@ -66,11 +64,13 @@
                 $.post("@(Url.Action("Add", "AdminProposal"))", { Entitled: Entitled, IsCorrect: IsCorrect, QuestionId: QuestionId, __RequestVerificationToken: token },
                     function (data) {
                         $("#heading" + QuestionId).parent().replaceWith(data);
+                        resetProposalForm();
                     });
             } else {
                 $.post("@(Url.Action("Edit", "AdminProposal"))", { Entitled: Entitled, IsCorrect: IsCorrect, QuestionId: QuestionId, Id: ProposalId, __RequestVerificationToken: token },
                     function (data) {
                         $("#heading" + QuestionId).parent().replaceWith(data);
+                        resetProposalForm();
                     });
             }
         });
@@ -110,7 +110,9 @@
             $("#SubmitAddQuestion input#Timer").val(TimerToEdit);
             $("#SubmitAddQuestion input#Id").val(IdQuestion);
             $("#SubmitAddQuestion input#Order").val(OrderToEdit);
+            $("#SubmitAddQuestion input[type='submit']").val("Edit");
             $("#LinkCancelModification").show();
+            $("#heading" + IdQuestion).css("background-color", "#e0e0e0");
         }
 
         @* Cancel modification, i need this function because the same form is for add and edit*@
@@ -118,8 +120,18 @@
             $("#SubmitAddQuestion input#Id").val("");
             $("#SubmitAddQuestion input#Entitled").val("");
             $("#SubmitAddQuestion input#Timer").val("");
-            $("#SubmitAddQuestion input#Order").val("");
+            $("#SubmitAddQuestion input#Order").val("0");
+            $("#SubmitAddQuestion input[type='submit']").val("Create");
             $("#LinkCancelModification").hide();
+            $(".card-header").css("background-color", "rgba(0,0,0,.03)");
+        }
+
+    @* reset form proposal *@
+        function resetProposalForm() {
+            $("#SubmitAddProposal input#Id").val("");
+            $("#SubmitAddProposal input#Entitled").val("");
+            $("#SubmitAddProposal input#IsCorrect").prop('checked', false);
+            $("#SubmitAddProposal input[type='submit']").val("Create");
         }
 
         @* Edit proposal *@
@@ -140,6 +152,7 @@
             if (IsCorrect == "True") {
                 $("#SubmitAddProposal input#IsCorrect").prop('checked', true);
             }
+            $("#SubmitAddProposal input[type='submit']").val("Edit");
 
             $('#ModalFormProposal').modal({
                 keyboard: true
