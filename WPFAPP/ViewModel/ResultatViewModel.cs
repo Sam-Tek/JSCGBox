@@ -22,11 +22,6 @@ namespace WPFAPP.ViewModel
             LoadQuestionnaires();
         }
 
-        public ResultatViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
         public async void LoadQuestionnaires()
         {
             var questionnaires = await _questionnaireBusiness.GetQuestionnairesAsync();
