@@ -22,7 +22,7 @@ namespace Business.Tests
             // act
             IQueryable<Questionnaire> questionnaires = await questionnaireBusiness.GetQuestionnairesAsync();
             // assert
-            Assert.AreEqual(questionnaires.Count(), 1);
+            Assert.AreEqual(questionnaires.Count(), 2);
         }
     }
 }
