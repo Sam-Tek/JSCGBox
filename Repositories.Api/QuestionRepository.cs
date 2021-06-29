@@ -7,17 +7,21 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Entities;
 using Repositories.Contracts;
+using Microsoft.Extensions.Configuration;
 
 namespace Repositories.Api
 {
     public class QuestionRepository : IQuestionRepository
     {
         private HttpClient _httpClient;
+        private IConfiguration _configuration;
 
-        public QuestionRepository()
+        public QuestionRepository(IConfiguration configuration)
         {
+            _configuration = configuration;
+
             _httpClient = new HttpClient{
-                BaseAddress = new Uri("https://localhost:5001/"),
+                BaseAddress = new Uri(_configuration["ApiUrl"]),
                 Timeout = TimeSpan.FromSeconds(30)
             };
             

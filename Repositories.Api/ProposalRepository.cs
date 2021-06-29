@@ -6,20 +6,23 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Entities;
 using Repositories.Contracts;
+using Microsoft.Extensions.Configuration;
 
 namespace Repositories.Api
 {
     public class ProposalRepository : IProposalRepository
     {
         private HttpClient _httpClient;
+        private IConfiguration _configuration;
 
-        
 
-        public ProposalRepository()
+
+        public ProposalRepository(IConfiguration configuration)
         {
+            _configuration = configuration;
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri("http://localhost:5001/"),
+                BaseAddress = new Uri(_configuration["ApiUrl"]),
                 Timeout = TimeSpan.FromSeconds(30)
             };
 
