@@ -110,7 +110,7 @@
             $("#SubmitAddQuestion input#Timer").val(TimerToEdit);
             $("#SubmitAddQuestion input#Id").val(IdQuestion);
             $("#SubmitAddQuestion input#Order").val(OrderToEdit);
-            $("#SubmitAddQuestion input[type='submit']").val("Edit");
+            $("#SubmitAddQuestion input[type='submit']").val("Modifier");
             $("#LinkCancelModification").show();
             $("#heading" + IdQuestion).css("background-color", "#e0e0e0");
         }
@@ -121,7 +121,7 @@
             $("#SubmitAddQuestion input#Entitled").val("");
             $("#SubmitAddQuestion input#Timer").val("");
             $("#SubmitAddQuestion input#Order").val("0");
-            $("#SubmitAddQuestion input[type='submit']").val("Create");
+            $("#SubmitAddQuestion input[type='submit']").val("Créer");
             $("#LinkCancelModification").hide();
             $(".card-header").css("background-color", "rgba(0,0,0,.03)");
         }
@@ -131,7 +131,7 @@
             $("#SubmitAddProposal input#Id").val("");
             $("#SubmitAddProposal input#Entitled").val("");
             $("#SubmitAddProposal input#IsCorrect").prop('checked', false);
-            $("#SubmitAddProposal input[type='submit']").val("Create");
+            $("#SubmitAddProposal input[type='submit']").val("Créer");
         }
 
         @* Edit proposal *@
@@ -152,7 +152,7 @@
             if (IsCorrect == "True") {
                 $("#SubmitAddProposal input#IsCorrect").prop('checked', true);
             }
-            $("#SubmitAddProposal input[type='submit']").val("Edit");
+            $("#SubmitAddProposal input[type='submit']").val("Modifier");
 
             $('#ModalFormProposal').modal({
                 keyboard: true
