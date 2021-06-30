@@ -37,7 +37,8 @@
                     @item.User.FirstName @item.User.LastName
                 </td>
                 <td>
-                    @Html.ActionLink("Participate", "Participate", "Question", new { questionnaireId = item.Id, order = 1, isFirstQuestion = true })
+                    @*Html.ActionLink("Participate", "Participate", "Question", new { questionnaireId = item.Id, order = 1, isFirstQuestion = true })*@
+                    <a asp-action="Participate" asp-controller="Question" asp-route-questionnaireId="@item.Id" asp-route-order="1" asp-route-isFirstQuestion="true" class="btn btn-outline-primary">Participer</a>
                 </td>
             </tr>
         }
