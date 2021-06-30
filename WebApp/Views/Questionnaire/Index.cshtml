@@ -13,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                Title
+                Titre
             </th>
             <th>
                 Note
             </th>
             <th>
-                Response date
+                Date de réponse
             </th>
             <th>
-                Delete
+                Supprimer
             </th>
         </tr>
     </thead>
@@ -31,7 +31,7 @@
         {
             <tr>
                 <td>
-                    @(result.Proposals.Count > 0 ? result.Proposals.FirstOrDefault().Question.Questionnaire.Title : "No response")
+                    @(result.Proposals.Count > 0 ? result.Proposals.FirstOrDefault().Question.Questionnaire.Title : "Pas de réponse")
                 </td>
                 <td>
                     @(result.Note != null ? result.Note : 0) / 20
@@ -40,7 +40,7 @@
                     @result.ResponseDate.ToShortDateString()
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-route-id="@result.Id">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@result.Id">Supprimer</a>
                 </td>
             </tr>
         }
