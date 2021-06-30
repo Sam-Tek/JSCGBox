@@ -1,10 +1,10 @@
 ﻿@model Entities.Question
 
 @{
-    ViewData["Title"] = "Participation in a questionnaire";
+    ViewData["Title"] = "Participation à un questionnaire";
 }
 
-<h2>Participation in the questionnaire : @Model.Questionnaire.Title</h2>
+<h2>Participation au questionnaire : @Model.Questionnaire.Title</h2>
 <hr />
 
 <form asp-action="Answer" id="SubmitAnswer">
@@ -19,7 +19,7 @@
             </li>
         }
     </ul>
-    <button type="submit" class="btn btn-primary">Answer</button>
+    <button type="submit" class="btn btn-primary">Répondre</button>
 </form>
 
 @section Scripts {

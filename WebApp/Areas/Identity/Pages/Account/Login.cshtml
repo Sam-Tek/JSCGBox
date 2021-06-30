@@ -90,7 +90,7 @@
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
-                <h3>Login</h3>
+                <h3>Connexion</h3>
                 <div class="d-flex justify-content-end social_icon">
                     <span><i class="fab fa-facebook-square"></i></span>
                     <span><i class="fab fa-google-plus-square"></i></span>
@@ -116,7 +116,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input type="password" class="form-control" placeholder="password" asp-for="Input.Password">
+                        <input type="password" class="form-control" placeholder="Mot de passe" asp-for="Input.Password">
 
 
                     </div>
@@ -124,22 +124,22 @@
 
                         <label asp-for="Input.RememberMe">
                             <input asp-for="Input.RememberMe" type="checkbox" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            Se souvenir de moi
                         </label>
 
 
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Login" class="btn float-right login_btn">
+                        <input type="submit" value="Connexion" class="btn float-right login_btn">
                     </div>
                 </form>
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-center links">
-                    Don't have an account?<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
+                    Vous n'avez pas de compte ?<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">S'enregistrer</a>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a asp-page="./ForgotPassword">Forgot your password?</a>
+                    <a asp-page="./ForgotPassword">Mot de passe oublié ?</a>
                 </div>
             </div>
         </div>
