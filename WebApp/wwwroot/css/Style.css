@@ -86,3 +86,16 @@ color: white;
 .links a{
 margin-left: 4px;
 }
+
+.bgimg-1 {
+    /* The image used*/
+    /*  background-image: url("imagedefond.jpeg");*/
+    background-color: red;
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.90;
+}
