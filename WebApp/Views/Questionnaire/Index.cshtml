@@ -4,25 +4,25 @@
     ViewData["Title"] = "Participated questionnaires";
 }
 
-<h1>Participated questionnaires</h1>
+<h1>Mes participations</h1>
 
 <p>
-    <a asp-action="Search">Participate Questionnaire</a>
+    <a asp-action="Search">Participer à un questionnaire</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Title
+                Titre
             </th>
             <th>
                 Note
             </th>
             <th>
-                Response date
+                Date de réponse
             </th>
             <th>
-                Delete
+                Supprimer
             </th>
         </tr>
     </thead>
@@ -31,7 +31,7 @@
         {
             <tr>
                 <td>
-                    @(result.Proposals.Count > 0 ? result.Proposals.FirstOrDefault().Question.Questionnaire.Title : "No response")
+                    @(result.Proposals.Count > 0 ? result.Proposals.FirstOrDefault().Question.Questionnaire.Title : "Pas de réponse")
                 </td>
                 <td>
                     @(result.Note != null ? result.Note : 0) / 20
@@ -40,7 +40,7 @@
                     @result.ResponseDate.ToShortDateString()
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-route-id="@result.Id">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@result.Id" class="btn btn-outline-danger">Supprimer</a>
                 </td>
             </tr>
         }

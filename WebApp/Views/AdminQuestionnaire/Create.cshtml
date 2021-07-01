@@ -1,10 +1,10 @@
 ﻿@model Entities.Questionnaire
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Création";
 }
 
-<h1>Create</h1>
+<h1>Création</h1>
 
 <h4>Questionnaire</h4>
 <hr />
@@ -13,24 +13,24 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Titre</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DefaultTimer" class="control-label"></label>
+                <label asp-for="DefaultTimer" class="control-label">Temps par défaut</label>
                 <input asp-for="DefaultTimer" class="form-control" />
                 <span asp-validation-for="DefaultTimer" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Créer" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {

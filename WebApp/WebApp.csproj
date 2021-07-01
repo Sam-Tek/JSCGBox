@@ -39,7 +39,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\Style.css" />
-    <None Include="wwwroot\Images\backimage.jpg" />
   </ItemGroup>
 
 </Project>

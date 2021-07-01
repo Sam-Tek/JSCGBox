@@ -7,34 +7,34 @@
                 <span id="EntitledEditQuestion@(Model.Id)">@Model.Entitled</span> -
                 @if (Model.Timer == null)
                 {
-                    <text>Default timer</text>
+                    <text>Temps par défaut</text>
                     <span id="TimerEditQuestion@(Model.Id)"></span>
                 }
                 else
                 {
                     <text><span id="TimerEditQuestion@(Model.Id)">@Model.Timer</span>s</text>
                 }
-                - Order: <span id="OrderEditQuestion@(Model.Id)">@Model.Order</span>
+                - Ordre: <span id="OrderEditQuestion@(Model.Id)">@Model.Order</span>
             </button>
         </h5>
     </div>
 
     <div id="collapse@(Model.Id)" class="collapse @ViewBag.Show" aria-labelledby="heading@(Model.Id)" data-parent="#accordion">
         <div class="card-body">
-            <a href="#SubmitAddQuestion" onClick="eventClickEditQuestion(@Model.Id);">Edit Question</a> |
-            <a asp-action="Delete" asp-route-id="@Model.Id">Delete Question</a>
-            <span class="IdQuestion" style="display: none;">@Model.Id</span><br />
-            <a href="#TitleQuestion@(Model.Id)" onClick="eventClickAddProposal(@Model.Id);">Add Proposal</a><br />
+            <a href="#SubmitAddQuestion" onClick="eventClickEditQuestion(@Model.Id);" class="btn btn-outline-primary btn-sm">Modifier Question</a> |
+            <a asp-action="Delete" asp-controller="AdminQuestion" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">Supprimer Question</a>
+            <span class="IdQuestion" style="display: none;">@Model.Id</span><hr />
+            <a href="#TitleQuestion@(Model.Id)" onClick="eventClickAddProposal(@Model.Id);" class="btn btn-outline-primary btn-sm">Ajouter une proposition</a><br /><br />
             @if (Model.Proposals != null)
             {
                 foreach (var proposal in Model.Proposals)
                 {
                     <span id="proposal@(proposal.Id)">
-                        -
+                        <strong>+</strong>
                         <span id="EntitledEditProposal@(proposal.Id)">@proposal.Entitled</span> ->
                         <span id="IsCorrectEditProposal@(proposal.Id)">@proposal.IsCorrect</span>
-                        <a href="#TitleQuestion@(Model.Id)" onclick="eventClickEditProposal(@proposal.Id, @Model.Id)">Edit Proposal</a> |
-                        <a href="#TitleQuestion@(Model.Id)" onclick="eventClickDeleteProposal(@proposal.Id)">X</a><br />
+                        <a href="#TitleQuestion@(Model.Id)" onclick="eventClickEditProposal(@proposal.Id, @Model.Id)" class="btn btn-outline-primary btn-sm">Modifier</a> |
+                        <a href="#TitleQuestion@(Model.Id)" onclick="eventClickDeleteProposal(@proposal.Id)" class="btn btn-outline-danger btn-sm">Supprimer</a><br /><br />
                     </span>
                 }
             }

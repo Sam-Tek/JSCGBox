@@ -13,20 +13,20 @@
                 <div class="modal-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="Entitled" class="control-label"></label>
+                        <label asp-for="Entitled" class="control-label">Intitulé</label>
                         <input asp-for="Entitled" class="form-control" Required/>
                         <span asp-validation-for="Entitled" class="text-danger"></span>
                     </div>
                     <div class="form-check">
                         <input asp-for="IsCorrect" value="" class="form-check-input">
-                        <label asp-for="IsCorrect" class="form-check-label"></label>
+                        <label asp-for="IsCorrect" class="form-check-label">Est correct</label>
                         <span asp-validation-for="IsCorrect" class="text-danger"></span>
                     </div>
                     <input type="hidden" asp-for="QuestionId" value="@Model.QuestionId" />
                     <input type="hidden" asp-for="Id" value="" />
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Créer" class="btn btn-primary" />
                 </div>
             </form>
         </div>

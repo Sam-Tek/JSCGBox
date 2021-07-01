@@ -1,31 +1,28 @@
 ﻿@model IEnumerable<Entities.Questionnaire>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Questionnaires";
 }
 
 <h1>Questionnaires</h1>
 
 <p>
-    <a asp-action="Create">Create Questionnaire</a>
+    <a asp-action="Create">Création Questionnaire</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Titre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Temps par défaut
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DefaultTimer)
+                Utilisateur
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                Edit | Details | Delete
+                Modifier | Détails | Supprimer
             </th>
             <th>
                 Question
@@ -37,24 +34,21 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DefaultTimer)
+                @Html.DisplayFor(modelItem => item.DefaultTimer)s
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Détails</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Supprimer</a>
             </td>
             <td>
-                <a asp-controller="AdminQuestion" asp-route-id="@item.Id">Question</a>
+                <a asp-controller="AdminQuestion" asp-route-id="@item.Id" class="btn btn-outline-primary">Question</a>
             </td>
         </tr>
         }

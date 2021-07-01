@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApp</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">JSCG Box</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,13 +23,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="AdminQuestionnaire" asp-action="Index">Created questionnaires</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AdminQuestionnaire" asp-action="Index">Création</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Questionnaire" asp-action="Index">Participated questionnaires</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Questionnaire" asp-action="Index">Participation</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -37,6 +37,7 @@
             </div>
         </nav>
     </header>
+    @await RenderSectionAsync("Header", required: false)
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

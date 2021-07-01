@@ -1,12 +1,17 @@
 ﻿@model IQueryable<Entities.User>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "JSCGBox";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenue sur JSCGBox </h1>
-    <p>Projet de fin de soutenance .</p>
-</div>
+@section Header {
+    <div class="text-center blockHeader jumbotron">
+        <h1 class="display-4">Bienvenue sur JSCGBox </h1>
+        <br />
+        <p>Projet de fin de soutenance</p>
+        <br /><br />
+        <a asp-action="Index" asp-controller="AdminQuestionnaire" class="btn btn-success btn-lg">Commencer</a>
+    </div>
+}
 
 
 @*
@@ -36,12 +41,13 @@
 <section class="wrapper">
     <div class="container">
 
-        <div class="row">
+        <div class="row ">
             @foreach (var item in Model)
             {
-                <div class="col-sm-4 mt-4 card-deck"  >
-                    <div class="card text-white card-has-bg click-col" style="background-image:url('https://source.unsplash.com/600x900/?computer,design');">
-                        <img class="card-img d-none" src="https://source.unsplash.com/600x900/?computer,design" alt="question">
+                <div class="col-sm-4 mt-4 card-deck">
+                    <div class="card text-white card-has-bg click-col" style="background-image: url('Images/bac.jpg');
+    ">
+                        <img class="card-img d-none" src="Images/bac.jpg" alt="question">
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body">
                                 <small class="card-meta mb-2">Questionnaires</small>
@@ -76,6 +82,7 @@
 
 @section Style {
     <link href="~/css/Style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 }
 
 
